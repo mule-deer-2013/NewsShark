@@ -13,5 +13,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @channel = Channel.new
   end
 end

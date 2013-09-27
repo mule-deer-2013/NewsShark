@@ -181,6 +181,7 @@ DEPENDENCIES
   faker
   jquery-rails
   launchy
+  nokogiri
   pg
   pry-rails
   rails (= 3.2.12)
