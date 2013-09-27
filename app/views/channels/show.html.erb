@@ -1,0 +1,7 @@
+<h1><%= @channel.name %></h1>
+
+<%= @channel.scrape_for_articles %>
+<% @articles.each do |article| %>
+  <%= article.key %>
+  <%= article.value %>
+<% end %>

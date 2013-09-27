@@ -2,10 +2,16 @@ require 'spec_helper'
 
 describe UsersController do
   describe "GET new" do
-    it "render the new_template" do
+    it "renders the new_template" do
       get :new
       expect(response).to render_template('new')
     end
+
+    it "renders the new_channel_form partial" do 
+      get :new
+      response.should render_template(:partial => '_new_channel_form')
+    end
+
   end
 
   describe "POST create" do
@@ -36,4 +42,13 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET show" do 
+    let(:user) { FactoryGirl.create :user }
+    it "assigns @channel" do 
+      get :show, :id => user.id
+      expect(assigns(:channel)).to be_an_instance_of Channel
+    end
+  end
+
 end
