@@ -19,7 +19,7 @@ describe SessionsController  do
       end
 
       it "should raise a flash notice error" do
-        flash[:error].should_not be_nil
+        flash[:notice].should_not be_nil
       end
     end
 
