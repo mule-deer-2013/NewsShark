@@ -19,6 +19,8 @@ class Channel < ActiveRecord::Base
       end
     end
     return articles
+    # BUG BUG
+    # NYTimes articles may need https prefix
   end
 
 end

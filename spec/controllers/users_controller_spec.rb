@@ -6,12 +6,6 @@ describe UsersController do
       get :new
       expect(response).to render_template('new')
     end
-
-    it "renders the new_channel_form partial" do 
-      get :new
-      response.should render_template(:partial => '_new_channel_form')
-    end
-
   end
 
   describe "POST create" do
@@ -45,6 +39,12 @@ describe UsersController do
 
   describe "GET show" do 
     let(:user) { FactoryGirl.create :user }
+
+    it "assigns @channel" do 
+      get :show, :id => user.id
+      expect(assigns(:user)).to be_a User
+    end
+
     it "assigns @channel" do 
       get :show, :id => user.id
       expect(assigns(:channel)).to be_an_instance_of Channel
