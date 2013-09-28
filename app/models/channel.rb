@@ -9,7 +9,7 @@ class Channel < ActiveRecord::Base
   def scrape_for_articles
     # "returns titles and links of articles from Google news"
     doc = Nokogiri::HTML(open("https://www.google.com/search?hl=en&gl=us&tbm=nws&authuser=0&q=#{self.name.gsub(' ', '+')}&oq=#{self.name.gsub(' ', '+')}&gs_l=news"))
-    
+
     doc.xpath('//a').each do |link|
       if link.to_s.start_with?('<a href="/url?q=')
         headline = link.inner_text
@@ -19,7 +19,6 @@ class Channel < ActiveRecord::Base
         self.articles.last.set_keywords
       end
     end
-
     # scrape_sanitize_front = doc.xpath('//a').map do |link|
     #   link.to_s.sub('<a href="/url?q=', "")
     # end
@@ -27,7 +26,7 @@ class Channel < ActiveRecord::Base
     # select_https = scrape_sanitize_front.select do |potential_url| potential_url.start_with?("http")
     # end
 
-    # sanitized_urls = select_https.map do |bad_url| 
+    # sanitized_urls = select_https.map do |bad_url|
     #   bad_url[0...bad_url.index("&amp;")]
     # end
 
