@@ -7,6 +7,6 @@
 <iframe id='iframe_window' src='<%=focus_article.url%>' width="720" height="720"></iframe>
 
 <% @articles.each do |article| %>
-<%= link_to "#{article.title}", article.url %><br><br>
+<%= link_to "#{article.title}", article.url, class: "news_link" %><br><br>
 
 <% end %>
