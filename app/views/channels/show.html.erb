@@ -1,7 +1,7 @@
 <h1><%= @channel.name %></h1>
 
 <% focus_article = @articles.first %>
-<iframe src='<%=focus_article.values.first%>' width="720" height="720"></iframe>
+<iframe id='iframe_window' src='<%=focus_article.values.first%>' width="720" height="720"></iframe>
 
 <% @articles.each do |article| %>
 <%= link_to "#{article.keys.first}", article.values.first %><br><br>
