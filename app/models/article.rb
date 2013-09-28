@@ -6,12 +6,24 @@ class Article < ActiveRecord::Base
   belongs_to :channel
   validates_presence_of :title, :url
 
-  # after_save :set_keywords
-
   def set_keywords
     page = MetaInspector.new(self.url)
-    keywords = page.meta_keywords.split(', ')
-    keywords.each do |keyword|
+
+    if page.meta_keywords
+      keywords = page.meta_keywords.split(', ')
+      keywords.each do |keyword|
+      self.keywords += [keyword.downcase]
+    end
+
+    if page.meta_keyword
+      keywords = page.meta_keyword.split(', ')
+      keywords.each do |keyword|
+      self.keywords += [keyword.downcase]
+    end
+
+    if page.meta_news_keywords
+      keywords = page.meta_news_keywords.split(', ')
+      keywords.each do |keyword|
       self.keywords += [keyword.downcase]
     end
 

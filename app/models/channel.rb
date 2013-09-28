@@ -11,22 +11,37 @@ class Channel < ActiveRecord::Base
     # articles = []
     doc = Nokogiri::HTML(open("https://www.google.com/search?hl=en&gl=us&tbm=nws&authuser=0&q=#{self.name.gsub(' ', '+')}&oq=#{self.name.gsub(' ', '+')}&gs_l=news"))
     
-    puts doc
-    puts doc.class
-
-    doc.xpath('//h3').children.each do |nokogiri_element|
-      if nokogiri_element.attribute('href').to_s.start_with?('/url?q=')
-        headline = nokogiri_element.inner_text
-        url = nokogiri_element.attribute('href').to_s.sub('/url?q=', '')
-        # url_sanitized = url[0...url.rindex(/\//)]       
-        self.articles.create(:title => headline, :url => url)
+    doc.xpath('//a').each do |link|
+      if link.to_s.start_with?('<a href="/url?q=')
+        headline = link.inner_text
+        url_front_sanitized = link['href'].to_s.sub('/url?q=', "")
+        puts "*" * 100
+        puts url_front_sanitized
+        puts "*" * 100
+        url = url_front_sanitized[0...url_front_sanitized.index("&sa")]
+        self.articles.create(title: headline, url: url)
         self.articles.last.set_keywords
       end
     end
+
+    # scrape_sanitize_front = doc.xpath('//a').map do |link|
+    #   link.to_s.sub('<a href="/url?q=', "")
+    # end
+
+    # select_https = scrape_sanitize_front.select do |potential_url| potential_url.start_with?("http")
+    # end
+
+    # sanitized_urls = select_https.map do |bad_url| 
+    #   bad_url[0...bad_url.index("&amp;")]
+    # end
+
+    # sanitized_urls.each do |url|
+    #   self.articles.create(:title => headline, :url => url)
+    #     self.articles.last.set_keywords
+    # end
 
     # BUG BUG
     # NYTimes articles may need https prefix
   end
 
 end
-
