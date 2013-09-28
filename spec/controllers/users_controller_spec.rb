@@ -1,6 +1,25 @@
 require 'spec_helper'
 
 describe UsersController do
+  describe "GET show" do
+    let(:valid_params) { {:email => "thomas@me.com", :password => "123notit"} }
+
+    context "when not signed in" do 
+      it "should redirect to signin_path" do
+        get :show, :id => 5
+        response.should redirect_to signin_path
+      end
+    end
+
+    context "when signed in" do
+      it "should render the user's show template" do
+        controller.stub :signed_in? => true
+        get :show, :id => 5
+        response.should render_template("show")
+      end
+    end
+  end
+
   describe "GET new" do
     it "render the new_template" do
       get :new
