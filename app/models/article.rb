@@ -12,19 +12,22 @@ class Article < ActiveRecord::Base
     if page.meta_keywords
       keywords = page.meta_keywords.split(', ')
       keywords.each do |keyword|
-      self.keywords += [keyword.downcase]
+        self.keywords += [keyword.downcase]
+      end
     end
 
     if page.meta_keyword
       keywords = page.meta_keyword.split(', ')
       keywords.each do |keyword|
-      self.keywords += [keyword.downcase]
+        self.keywords += [keyword.downcase]
+      end
     end
 
     if page.meta_news_keywords
       keywords = page.meta_news_keywords.split(', ')
       keywords.each do |keyword|
-      self.keywords += [keyword.downcase]
+        self.keywords += [keyword.downcase]
+      end
     end
 
     self.save
