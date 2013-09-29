@@ -6,6 +6,8 @@ class Channel < ActiveRecord::Base
   belongs_to :user
   has_many :articles
 
+  has_one :preference
+
   def scrape_for_articles
     # "returns titles and links of articles from Google news"
     doc = Nokogiri::HTML(open("https://www.google.com/search?hl=en&gl=us&tbm=nws&authuser=0&q=#{self.name.gsub(' ', '+')}&oq=#{self.name.gsub(' ', '+')}&gs_l=news"))
@@ -20,28 +22,10 @@ class Channel < ActiveRecord::Base
           self.articles.create(title: headline, url: url)
         rescue
         end
-        self.articles.last.set_keywords
-        puts "*"*50
+        article = self.articles.last
+        # article.set_keywords
       end
     end
-    # scrape_sanitize_front = doc.xpath('//a').map do |link|
-    #   link.to_s.sub('<a href="/url?q=', "")
-    # end
-
-    # select_https = scrape_sanitize_front.select do |potential_url| potential_url.start_with?("http")
-    # end
-
-    # sanitized_urls = select_https.map do |bad_url|
-    #   bad_url[0...bad_url.index("&amp;")]
-    # end
-
-    # sanitized_urls.each do |url|
-    #   self.articles.create(:title => headline, :url => url)
-    #     self.articles.last.set_keywords
-    # end
-
-    # BUG BUG
-    # NYTimes articles may need https prefix
   end
 
 end
