@@ -1,8 +1,9 @@
-<%= form_tag({ controller: "articles", action: "update" }, method: "put") do %>
+<%= form_for [article.channel.user, article.channel, article] do |f| %>
   <%= radio_button_tag(:user_feedback, 1) %>
   <%= label_tag(:like, "I liked it!") %>
   <%= radio_button_tag(:user_feedback, -1) %>
   <%= label_tag(:dislike, "Not for me") %>
   <%= radio_button_tag(:user_feedback, 0) %>
   <%= label_tag(:skip, "Skip") %>
+  <%= submit_tag("Give Feedback") %>
 <% end %>

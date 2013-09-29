@@ -5,9 +5,12 @@ NewsShark::Application.routes.draw do
   match '/signout', to: 'sessions#destroy'
 
   resources :users, only: [:new, :create, :show] do
-    resources :channels, only: [:create, :show]
+    resources :channels, only: [:create, :show] do
+        resources :articles, only: [:update]
+    end
   end
 
-  resources :articles, only: [:update]
+
+
   root to: 'users#new'
 end
