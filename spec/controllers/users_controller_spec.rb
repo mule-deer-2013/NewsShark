@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-  describe "GET show" do
+  describe "GET #show" do
     let(:valid_params) { {:email => "thomas@me.com", :password => "123notit"} }
 
     context "when not signed in" do 
@@ -20,14 +20,14 @@ describe UsersController do
     end
   end
 
-  describe "GET new" do
+  describe "GET #new" do
     it "render the new_template" do
       get :new
       expect(response).to render_template('new')
     end
   end
 
-  describe "POST create" do
+  describe "POST #create" do
     let(:valid_params) { { first_name: 'Ian', last_name: 'Root', email: 'ianroot@gmail.com', password: 'newshark', password_confirmation: 'newshark'} }
     let(:invalid_params) { {first_name: '' , last_name: '', email: ''} }
 

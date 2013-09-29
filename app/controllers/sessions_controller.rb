@@ -11,12 +11,12 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_to user_path(user), :notice => "Welcome Back Shark"
     else
-      redirect_to new_user_path, :notice => "Invalid email/password combination"
+      redirect_to signin_path, :notice => "Invalid email/password combination"
     end
   end
 
   def destroy
     sign_out
-    redirect_to root_url
+    redirect_to signin_url
   end
 end

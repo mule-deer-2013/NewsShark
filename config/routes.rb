@@ -5,5 +5,6 @@ NewsShark::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
   
-  root to: 'users#new'
+  root to: 'users#show'
 end
+
