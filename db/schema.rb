@@ -12,14 +12,13 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20130929011833) do
-
   create_table "articles", :force => true do |t|
     t.integer  "channel_id"
     t.string   "title"
     t.string   "url"
-    t.string   "keywords",      :default => "{}"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.string   "keywords",   :default => [], :array => true
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "user_feedback"
   end
 

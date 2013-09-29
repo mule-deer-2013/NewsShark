@@ -14,7 +14,8 @@ class ChannelsController < ApplicationController
 
   def show
     @channel = Channel.find(params[:id])
-    @articles = @channel.scrape_for_articles
+    @channel.scrape_for_articles
+    @articles = @channel.articles
   end
 
 end

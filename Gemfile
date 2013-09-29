@@ -4,8 +4,9 @@ gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'metainspector'
 gem 'pg'
+gem 'postgres_ext'
 gem 'nokogiri'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -21,12 +22,16 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'typhoeus', '0.4.2'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'debugger'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'sextant'
+  gem 'vcr', '2.2.5'
+
 end
 
 group :test do
