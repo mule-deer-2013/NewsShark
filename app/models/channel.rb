@@ -23,7 +23,7 @@ class Channel < ActiveRecord::Base
         rescue
         end
         article = self.articles.last
-        # article.set_keywords
+        ArticleWorker.perform_async(article.id)
       end
     end
   end
