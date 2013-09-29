@@ -12,3 +12,6 @@
  *= require_tree .
  */
 *= require twitter/bootstrap
+.page {
+  top-margin: 100px;
+}
