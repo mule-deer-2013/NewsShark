@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "User signup", :js => true do
+feature 'user signup', :js => true do
   context "with valid params" do
     it "displays success message" do
       visit new_user_path
@@ -13,7 +13,7 @@ feature "User signup", :js => true do
       expect(page).to have_content( "Welcome!" )
     end
   end
-  it "displays error message(s)" do
+  it 'displays error message(s)' do
     visit new_user_path
     fill_in "First name", :with => ""
     fill_in "Last name", :with => ""
@@ -26,13 +26,9 @@ feature "User signup", :js => true do
 end
 
 
-feature 'User signin', :js => true do
+feature 'user signin', :js => true do
   context 'with valid params' do
-   let!(:user) { User.create(:email      => 'thomas@me.com',
-                              :first_name => 'thomas',
-                              :last_name  => 'landon',
-                              :password   => '123notit',
-                              :password_confirmation => '123notit')} 
+    let(:user) { FactoryGirl.create(:user) }
 
     it 'displays success message' do
       visit signin_path
@@ -51,5 +47,25 @@ feature 'User signin', :js => true do
       click_button "Sign in"
       expect(page).to have_content('Invalid email/password combination')
     end
+  end
+end
+
+feature 'user authentication', :js => true do
+  it 'redirects to sign in page' do
+    visit user_path(1)
+    expect(page).to have_content("You must be logged in to access this section")
+  end
+end
+
+feature 'User signout', :js => true do
+  let(:user) { FactoryGirl.create(:user) }
+
+  it 'displays sign out message' do
+    visit signin_path
+    fill_in "Email", :with => user.email
+    fill_in "Password", :with => user.password
+    click_button 'Sign in'
+    click_button 'Sign out'
+    expect(page).to have_content("You have successfully logged out.")
   end
 end
