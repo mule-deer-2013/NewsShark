@@ -4,10 +4,11 @@ describe UsersController do
 
   describe "GET #show" do
     let(:valid_params) { {:email => "thomas@me.com", :password => "123notit"} }
-
+    let(:user) { FactoryGirl.create :user }
     context "when not signed in" do
       it "should redirect to signin_path" do
-        get :show, :id => 5
+        controller.stub :signed_in? => false
+        get :show, :id => user.id
         response.should redirect_to signin_path
       end
     end
@@ -15,7 +16,7 @@ describe UsersController do
     context "when signed in" do
       it "should render the user's show template" do
         controller.stub :signed_in? => true
-        get :show, :id => 5
+        get :show, :id => user.id
         response.should render_template("show")
       end
     end
@@ -59,8 +60,9 @@ describe UsersController do
 
   describe "GET show" do
     let(:user) { FactoryGirl.create :user }
+    before { controller.stub :signed_in? => true }
 
-    it "assigns @channel" do
+    it "assigns @user" do
       get :show, :id => user.id
       expect(assigns(:user)).to be_a User
     end
