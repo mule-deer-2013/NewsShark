@@ -7,27 +7,37 @@ class Article < ActiveRecord::Base
   validates_presence_of :title, :url
   validates_uniqueness_of :url, scope: :channel_id
 
+# This needs to be D.R.Y
   def set_keywords
     if self.keywords.empty?
       begin
         page = MetaInspector.new(self.url)
 
         if page.meta_keywords
-          keywords = page.meta_keywords.split(', ')
+          page.meta_keywords.split(',').each do |word|
+            keywords = word.sub!(/^ /, "")
+          end
+
           keywords.each do |keyword|
             self.keywords += [keyword.downcase]
           end
         end
 
-        if page.meta_keyword
-          keywords = page.meta_keyword.split(', ')
+        if page.meta_keywords
+          page.meta_keywords.split(',').each do |word|
+            keywords = word.sub!(/^ /, "")
+          end
+
           keywords.each do |keyword|
             self.keywords += [keyword.downcase]
           end
         end
 
         if page.meta_news_keywords
-          keywords = page.meta_news_keywords.split(', ')
+          page.meta_keywords.split(',').each do |word|
+            keywords = word.sub!(/^ /, "")
+          end
+
           keywords.each do |keyword|
             self.keywords += [keyword.downcase]
           end
@@ -40,3 +50,4 @@ class Article < ActiveRecord::Base
     end
   end
 end
+
