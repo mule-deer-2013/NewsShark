@@ -1,0 +1,24 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to "NewsShark", '#', id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <li><%= link_to "Home",  root_path %></li>
+          <% if signed_in? %>
+           <li><%= button_to "Sign out", {:controller => :sessions, :action => 'destroy'}, :method => :delete %></li>
+          <% else %>
+             <%= form_for(:session, url: sessions_path) do |f| %>
+             <li><%= f.label :email %>
+                  <%= f.text_field :email %></li>
+              <li><%= f.label :password %>
+                  <%= f.password_field :password %></li>
+              <li><%= f.submit "Sign in" %></li>
+              <% end %>
+              <p>New user? <%= link_to "Create an account >>", new_user_path %></p>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
