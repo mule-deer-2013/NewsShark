@@ -14,12 +14,13 @@ class Channel < ActiveRecord::Base
       if link.to_s.start_with?('<a href="/url?q=')
         headline = link.inner_text
         url_front_sanitized = link['href'].to_s.sub('/url?q=', "")
-        url = url_front_sanitized[0...url_front_sanitized.index("&sa")]
+        url_remove_ampsa = url_front_sanitized.gsub(/&sa.*/,'')
+        url = url_remove_ampsa.gsub(/%3.*/,'')
         begin
           self.articles.create(title: headline, url: url)
         rescue
         end
-        # self.articles.last.set_keywords
+        self.articles.last.set_keywords
         puts "*"*50
       end
     end
