@@ -5,6 +5,7 @@
 
 <% focus_article = @articles.first %>
 <iframe id='iframe_window' src='<%=focus_article.url%>' width="720" height="720"></iframe>
+<%= render partial: 'articles/feedback_form', locals: { article: focus_article } %>
 
 <div id="myCarousel" class="carousel slide" data-interval="false">
   <ol class="carousel-indicators">

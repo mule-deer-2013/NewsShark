@@ -1,6 +1,27 @@
 require 'spec_helper'
 
 describe UsersController do
+
+  describe "GET #show" do
+    let(:valid_params) { {:email => "thomas@me.com", :password => "123notit"} }
+    let(:user) { FactoryGirl.create :user }
+    context "when not signed in" do
+      it "should redirect to signin_path" do
+        controller.stub :signed_in? => false
+        get :show, :id => user.id
+        response.should redirect_to signin_path
+      end
+    end
+
+    context "when signed in" do
+      it "should render the user's show template" do
+        controller.stub :signed_in? => true
+        get :show, :id => user.id
+        response.should render_template("show")
+      end
+    end
+  end
+
   describe "GET new" do
     it "renders the new_template" do
       get :new
@@ -8,7 +29,7 @@ describe UsersController do
     end
   end
 
-  describe "POST create" do
+  describe "POST #create" do
     let(:valid_params) { { first_name: 'Ian', last_name: 'Root', email: 'ianroot@gmail.com', password: 'newshark', password_confirmation: 'newshark'} }
     let(:invalid_params) { {first_name: '' , last_name: '', email: ''} }
 
@@ -37,15 +58,16 @@ describe UsersController do
     end
   end
 
-  describe "GET show" do 
+  describe "GET show" do
     let(:user) { FactoryGirl.create :user }
+    before { controller.stub :signed_in? => true }
 
-    it "assigns @channel" do 
+    it "assigns @user" do
       get :show, :id => user.id
       expect(assigns(:user)).to be_a User
     end
 
-    it "assigns @channel" do 
+    it "assigns @channel" do
       get :show, :id => user.id
       expect(assigns(:channel)).to be_an_instance_of Channel
     end
