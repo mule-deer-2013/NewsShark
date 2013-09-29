@@ -3,11 +3,11 @@ require 'spec_helper'
 
 describe SessionsController  do
   describe 'POST #create' do
-    let!(:user) { FactoryGirl.create(:user) } 
+    let!(:user) { FactoryGirl.create(:user) }
 
-    let(:valid_params) { { :email => 'thomas@me.com',:password => '123notit' } }
-    let(:invalid_params) { { :email => '', :password => '1234' } }                            
-    
+    let(:valid_params) { { :email => user.email, :password => user.password } }
+    let(:invalid_params) { { :email => '', :password => '1234' } }
+
     context 'sign in with invalid params' do
       before(:each) { post :create, :session =>  invalid_params }
       it "should redirect to user path" do
@@ -27,7 +27,7 @@ describe SessionsController  do
 
       it "should redirect to user path" do
         post :create, :session => valid_params
-        page.should redirect_to user_path user                
+        page.should redirect_to user_path user
       end
 
       it "attempts to authenticate user with valid params " do
@@ -73,4 +73,3 @@ describe SessionsController  do
     end
   end
 end
-       
