@@ -1,4 +1,5 @@
 NewsShark::Application.routes.draw do
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signin', to: 'sessions#new'
@@ -10,7 +11,7 @@ NewsShark::Application.routes.draw do
     end
   end
 
-
-
   root to: 'users#new'
+
 end
+
