@@ -16,7 +16,7 @@ class Channel < ActiveRecord::Base
         url_front_sanitized = link['href'].to_s.sub('/url?q=', "")
         url = url_front_sanitized[0...url_front_sanitized.index("&sa")]
         self.articles.create(title: headline, url: url)
-        self.articles.last.set_keywords
+        # self.articles.last.set_keywords
       end
     end
     # scrape_sanitize_front = doc.xpath('//a').map do |link|
