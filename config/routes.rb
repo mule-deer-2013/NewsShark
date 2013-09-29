@@ -11,7 +11,7 @@ NewsShark::Application.routes.draw do
     end
   end
 
-  root to: 'users#new'
+  root to: 'users#show'
 
 end
 
