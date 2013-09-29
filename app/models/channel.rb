@@ -10,8 +10,7 @@ class Channel < ActiveRecord::Base
 
   def scrape_for_articles
     # "returns titles and links of articles from Google news"
-    doc = Nokogiri::HTML(open("https://www.google.com/search?hl=en&gl=us&tbm=nws&authuser=0&q=#{self.name.gsub(' ', '+')}&oq=#{self.name.gsub(' ', '+')}&gs_l=news"))
-
+    doc = Nokogiri::HTML(open("https://www.google.com/search?hl=en&tbm=nws&q=#{self.name.gsub(' ', '+')}&gs_l=news"))
     doc.xpath('//a').each do |link|
       if link.to_s.start_with?('<a href="/url?q=')
         headline = link.inner_text
@@ -27,5 +26,4 @@ class Channel < ActiveRecord::Base
       end
     end
   end
-
 end
