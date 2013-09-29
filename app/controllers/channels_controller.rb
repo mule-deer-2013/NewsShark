@@ -4,6 +4,7 @@ class ChannelsController < ApplicationController
     channel.user = User.find(params[:user_id])
 
     if channel.save
+      Preference.create(:channel => channel)
       redirect_to user_channel_path(channel.user, channel)
     else
       flash[:notice] = channel.errors.full_messages.join(', ')

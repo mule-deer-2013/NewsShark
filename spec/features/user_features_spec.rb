@@ -6,8 +6,8 @@ feature 'user signup', :js => true do
       visit new_user_path
       fill_in "First name", :with => "news"
       fill_in "Last name", :with => "shark"
-      fill_in "Email", :with => "news@shark.com"
-      fill_in "Password", :with => "newsshark"
+      fill_in "user_email", :with => "news@shark.com"
+      fill_in "user_password", :with => "newsshark"
       fill_in "Password confirmation", :with => "newsshark"
       click_button "Sign up"
       expect(page).to have_content( "Welcome!" )
@@ -17,8 +17,8 @@ feature 'user signup', :js => true do
     visit new_user_path
     fill_in "First name", :with => ""
     fill_in "Last name", :with => ""
-    fill_in "Email", :with => ""
-    fill_in "Password", :with => ""
+    fill_in "user_email", :with => ""
+    fill_in "user_password", :with => ""
     fill_in "Password confirmation", :with => ""
     click_button "Sign up"
     expect(page).to have_content( "can't be blank" )
@@ -53,7 +53,7 @@ end
 feature 'user authentication', :js => true do
   it 'redirects to sign in page' do
     visit user_path(1)
-    expect(page).to have_content("You must be logged in to access this section")
+    expect(page).to_not have_content("Welcome")
   end
 end
 
