@@ -11,4 +11,14 @@ FactoryGirl.define do
     name { "Egypt" }
     user
   end
+
+  factory :article do 
+    title { "Title" }
+    url { 'http://www.spacex.com/webcast/' }
+    channel
+  end
+
 end
+
+
+
