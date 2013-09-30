@@ -21,7 +21,7 @@ class Channel < ActiveRecord::Base
         begin
           self.articles.create(title: headline, url: url)
           article = self.articles.last 
-          if article.valid? 
+          if article.valid?
             ArticleWorker.perform_async(article.id)
           end
         rescue
@@ -49,5 +49,6 @@ class Channel < ActiveRecord::Base
 
     self.save
   end
+
 
 end

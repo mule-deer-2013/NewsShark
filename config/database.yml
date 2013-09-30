@@ -16,7 +16,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: NewsShark_development
-  pool: 5
+  pool: 15
   host: localhost
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -41,12 +41,12 @@ test:
   adapter: postgresql
   encoding: unicode
   database: NewsShark_test
-  pool: 5
+  pool: 15
   host: localhost
 
 production:
   adapter: postgresql
   encoding: unicode
   database: NewsShark_production
-  pool: 5
+  pool: 15
   host: localhost

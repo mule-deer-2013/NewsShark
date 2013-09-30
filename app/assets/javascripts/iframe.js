@@ -7,6 +7,7 @@ $('document').ready(function(){
     e.preventDefault();
     renderIframe(this.href);
     var currentAction = $('.edit_article').attr("action")
+    debugger
     var newAction = currentAction.replace(/\d{1,}$/, this.id)
     $('.edit_article').attr("action", newAction)
   })
