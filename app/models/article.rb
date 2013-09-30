@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
 
   include MetaInspector
 
-  attr_accessible :title, :url, :channel_id, :user_feedback
+  attr_accessible :title, :url, :channel_id, :user_feedback, :keywords
   belongs_to :channel
   validates_presence_of :title, :url
   validates_uniqueness_of :url, scope: :channel_id
@@ -44,4 +44,3 @@ class Article < ActiveRecord::Base
     end
   end
 end
-
