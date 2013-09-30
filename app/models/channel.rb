@@ -20,11 +20,11 @@ class Channel < ActiveRecord::Base
         url = url_remove_ampsa.gsub(/%3.*/,'')
         begin
           self.articles.create(title: headline, url: url)
+          article = self.articles.last 
+          if article.valid? 
+            ArticleWorker.perform_async(article.id)
+          end
         rescue
-        end
-        article = self.articles.last
-        if article.valid? 
-          ArticleWorker.perform_async(article.id)
         end
       end
     end
