@@ -21,7 +21,7 @@ describe Channel do
       article.update_user_feedback(1)
       expect {
         channel.update_preferences_from(article)
-      }.to_not change {
+      }.to change {
         channel.preferenced_keywords
       }
     end
