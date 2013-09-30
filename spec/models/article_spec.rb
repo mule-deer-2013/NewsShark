@@ -5,9 +5,12 @@ describe Article do
   it { should validate_presence_of :url }
 
   context "#set_keywords" do 
+    let(:article) { FactoryGirl.create :article }
+
     it "sets keywords" do 
-      pending
+      expect{
+        article.set_keywords
+      }.to change { article.keywords } 
     end
   end
-
 end
