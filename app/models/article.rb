@@ -14,30 +14,21 @@ class Article < ActiveRecord::Base
         page = MetaInspector.new(self.url)
 
         if page.meta_keywords
-          page.meta_keywords.split(',').each do |word|
-            keywords = word.sub!(/^ /, "")
-          end
-
+          keywords = page.meta_keywords.split(', ')
           keywords.each do |keyword|
             self.keywords += [keyword.downcase]
           end
         end
 
-        if page.meta_keywords
-          page.meta_keywords.split(',').each do |word|
-            keywords = word.sub!(/^ /, "")
-          end
-
+        if page.meta_keyword
+          keywords = page.meta_keyword.split(', ')
           keywords.each do |keyword|
             self.keywords += [keyword.downcase]
           end
         end
 
         if page.meta_news_keywords
-          page.meta_keywords.split(',').each do |word|
-            keywords = word.sub!(/^ /, "")
-          end
-
+          keywords = page.meta_news_keywords.split(', ')
           keywords.each do |keyword|
             self.keywords += [keyword.downcase]
           end
