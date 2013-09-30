@@ -12,9 +12,9 @@ FactoryGirl.define do
     user
   end
 
-  factory :article do 
+  factory :article do
     title { "Title" }
-    url { 'http://www.spacex.com/webcast/' }
+    url { 'http://www.businessweek.com/articles/2013-09-26/womens-black-pants-are-boring-and-sad' }
     channel
   end
 

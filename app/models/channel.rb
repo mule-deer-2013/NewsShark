@@ -1,8 +1,8 @@
 class Channel < ActiveRecord::Base
-  serialize :preferences, ActiveRecord::Coders::Hstore
+  serialize :preferenced_keywords, ActiveRecord::Coders::Hstore
 
-  attr_accessible :name, :user_id, :preferences
- 
+  attr_accessible :name, :user_id, :preferenced_keywords
+
   validates_presence_of :name
 
   belongs_to :user
@@ -20,7 +20,7 @@ class Channel < ActiveRecord::Base
         url = url_remove_ampsa.gsub(/%3.*/,'')
         begin
           self.articles.create(title: headline, url: url)
-          article = self.articles.last 
+          article = self.articles.last
           if article.valid?
             ArticleWorker.perform_async(article.id)
           end
@@ -30,25 +30,16 @@ class Channel < ActiveRecord::Base
     end
   end
 
-  def set_preferences_from(article)
-    set_pref_keywords(article.keywords.join(','))
-    # set_pref_author(article.author)
-    # set_pref_publication(article.publication)
+  def update_preferences_from(article)
+    increment_values_for(article.keywords, article.user_feedback)
   end
 
-  # private  
+  private
 
-  def set_pref_keywords(keywords_string)
-
-    if self.preferences["keywords"]
-      self.preferences["keywords"] << ","
-      self.preferences["keywords"] << keywords_string
-    else
-      self.preferences["keywords"] = keywords_string
+  def increment_values_for(keywords, user_feedback)
+    keywords.each do |keyword|
+      self.preferenced_keywords[keyword] = self.preferenced_keywords[keyword].to_i + user_feedback
     end
-
-    self.save
   end
-
 
 end

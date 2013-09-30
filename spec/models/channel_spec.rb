@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Channel do 
+describe Channel do
   it { should validate_presence_of :name }
   it { should belong_to :user }
 
@@ -11,4 +11,21 @@ describe Channel do
       # end
     end
   end
+
+  describe '#update_preferences_from(article)' do
+    let(:channel) { FactoryGirl.create(:channel) }
+    let(:article) { FactoryGirl.create(:article) }
+
+    it "sets the keywords for a channel based on the keywords for an article" do
+      article.set_keywords
+      article.update_user_feedback(1)
+      expect {
+        channel.update_preferences_from(article)
+      }.to_not change {
+        channel.preferenced_keywords
+      }
+    end
+
+  end
+
 end
