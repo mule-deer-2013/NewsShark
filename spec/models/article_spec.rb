@@ -8,6 +8,7 @@ describe Article do
     let(:article) { FactoryGirl.create :article }
 
     it "sets keywords" do 
+      # This test is actually hitting up a real URL... Probably needs VCR (or a 'fixture')
       expect{
         article.set_keywords
       }.to change { article.keywords } 
