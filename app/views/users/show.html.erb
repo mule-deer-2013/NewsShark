@@ -1,3 +1,9 @@
 <%= flash[:notice] %>
 
 <%= render :partial => '/channels/new_channel_form' %>
+<h3>Your Channels</h3>
+<ul>
+<% @user_channels.each do |channel| %>
+  <li><%= link_to channel.name, [@user, channel] %></li>  
+<% end %>
+</ul>

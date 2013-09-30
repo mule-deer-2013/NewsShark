@@ -15,7 +15,7 @@ describe UsersController do
 
     context "when signed in" do
       it "should render the user's show template" do
-        controller.stub :signed_in? => true
+        controller.stub :current_user => user # stub in signed_in? ...instead?
         get :show, :id => user.id
         response.should render_template("show")
       end
