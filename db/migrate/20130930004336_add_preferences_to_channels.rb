@@ -1,5 +1,5 @@
 class AddPreferencesToChannels < ActiveRecord::Migration
   def change
-    add_hstore_index :channels, :preferences
+    add_column :channels, :preferences, :hstore
   end
 end
