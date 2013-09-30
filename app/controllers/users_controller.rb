@@ -18,5 +18,6 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @channel = Channel.new
+    @user_channels = @user.channels
   end
 end
