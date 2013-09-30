@@ -2,7 +2,6 @@
 <%= javascript_include_tag "iframe" %>
 
 <h1><%= @channel.name %></h1>
-
 <% focus_article = @articles.first %> <!-- only saving keywords from first article? this needs to be fixed from a UI point of view  -->
 <iframe id='iframe_window' src='<%=focus_article.url%>' width="720" height="720"></iframe>
 <%= render partial: 'articles/feedback_form', locals: { article: focus_article } %>

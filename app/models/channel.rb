@@ -1,12 +1,13 @@
 class Channel < ActiveRecord::Base
+  serialize :preferences, ActiveRecord::Coders::Hstore
 
-  attr_accessible :name, :user_id
+  attr_accessible :name, :user_id, :preferences
+ 
   validates_presence_of :name
 
   belongs_to :user
   has_many :articles
 
-  serialize :preferences, ActiveRecord::Coders::Hstore
 
   def scrape_for_articles
     # "returns titles and links of articles from Google news"
@@ -22,7 +23,9 @@ class Channel < ActiveRecord::Base
         rescue
         end
         article = self.articles.last
-        ArticleWorker.perform_async(article.id)
+        if article.valid? 
+          ArticleWorker.perform_async(article.id)
+        end
       end
     end
   end
@@ -33,7 +36,7 @@ class Channel < ActiveRecord::Base
     # set_pref_publication(article.publication)
   end
 
-  private  
+  # private  
 
   def set_pref_keywords(keywords_string)
 
@@ -46,15 +49,5 @@ class Channel < ActiveRecord::Base
 
     self.save
   end
-
-  # def set_pref_author(author)
-  #   self.preferences[:author] = author
-  #   self.save
-  # end
-
-  # def set_pref_publication(publication)
-  #   self.preferences[:publication] = publication
-  #   self.save
-  # end
 
 end
