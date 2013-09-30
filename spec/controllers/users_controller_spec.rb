@@ -61,6 +61,7 @@ describe UsersController do
   describe "GET show" do
     let(:user) { FactoryGirl.create :user }
     before { controller.stub :signed_in? => true }
+    before { controller.stub :current_user => user }
 
     it "assigns @user" do
       get :show, :id => user.id

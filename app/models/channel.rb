@@ -6,7 +6,7 @@ class Channel < ActiveRecord::Base
   belongs_to :user
   has_many :articles
 
-  has_one :preference
+  serialize :preferences, ActiveRecord::Coders::Hstore
 
   def scrape_for_articles
     # "returns titles and links of articles from Google news"
@@ -26,4 +26,35 @@ class Channel < ActiveRecord::Base
       end
     end
   end
+
+  def set_preferences_from(article)
+    set_pref_keywords(article.keywords.join(','))
+    # set_pref_author(article.author)
+    # set_pref_publication(article.publication)
+  end
+
+  private  
+
+  def set_pref_keywords(keywords_string)
+
+    if self.preferences["keywords"]
+      self.preferences["keywords"] << ","
+      self.preferences["keywords"] << keywords_string
+    else
+      self.preferences["keywords"] = keywords_string
+    end
+
+    self.save
+  end
+
+  # def set_pref_author(author)
+  #   self.preferences[:author] = author
+  #   self.save
+  # end
+
+  # def set_pref_publication(publication)
+  #   self.preferences[:publication] = publication
+  #   self.save
+  # end
+
 end
