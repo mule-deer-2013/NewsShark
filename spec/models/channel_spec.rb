@@ -1,3 +1,4 @@
+require 'support/meta_inspector_fake'
 require 'spec_helper'
 
 describe Channel do
@@ -6,9 +7,13 @@ describe Channel do
 
   describe '#scrape_for_articles' do
     let(:channel) { FactoryGirl.create(:channel) }
-    it "creates Article objects with Titles and URLs from Google news" do
-      pending
-      # end
+
+    it "creates Article objects from a scrape" do
+      expect{
+        channel.scrape_for_articles
+      }.to change {
+        channel.articles.count
+      }
     end
   end
 

@@ -11,11 +11,11 @@ class Article < ActiveRecord::Base
     self.user_feedback = value unless self.user_feedback == value
   end
 
-# This needs to be D.R.Y
   def set_keywords
     if self.keywords.empty?
       begin
-        page = MetaInspector.new(self.url)
+        # page = MetaInspector.new(self.url)
+        page = NewsScraper.keyword_scrape(self.url)
 
         if (words = ( page.meta_news_keywords || page.meta_keywords || page.meta_keyword ) )
           keywords = words.split(',')
@@ -25,6 +25,7 @@ class Article < ActiveRecord::Base
           end
         end
 
+        self.keywords = self.keywords.uniq
         self.save
 
       rescue
