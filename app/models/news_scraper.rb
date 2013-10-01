@@ -1,7 +1,5 @@
 class NewsScraper
 
-  include MetaInspector
-
   def self.scrape(search_term)
     articles = {}
     doc = Nokogiri::HTML(open("https://www.google.com/search?hl=en&tbm=nws&q=#{search_term.gsub(' ', '+')}&gs_l=news"))
@@ -32,6 +30,3 @@ class NewsScraper
   end
 
 end
-
-
-

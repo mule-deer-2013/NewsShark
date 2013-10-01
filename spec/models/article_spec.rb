@@ -10,15 +10,9 @@ describe Article do
     let(:article) { FactoryGirl.create :article }
 
     it "sets keywords" do
-      pending
-
-      # page = Object.new
-      # page.stub(:meta_news_keywords).and_return("these,are,words")
-      # MetaInspector.stub(:new).and_return(page)
-      # expect{
-      #   article.set_keywords
-      # }.to change { article.keywords }
-
+      expect{
+        article.set_keywords
+      }.to change { article.keywords }
     end
   end
 

@@ -7,16 +7,12 @@ describe Channel do
 
   describe '#scrape_for_articles' do
     let(:channel) { FactoryGirl.create(:channel) }
-    it "creates Article objects from a scrape" do
-      doc = Nokogiri::HTML(open('./spec/fixtures/pants_google_search.html'))
-      NewsScraper.stub(:scrape).and_return(doc)
-      channel.stub(:is_worth_saving?).and_return(true, false)
 
+    it "creates Article objects from a scrape" do
       expect{
         channel.scrape_for_articles
-        channel.save
-      }.to change{
-        channel.reload.articles.count
+      }.to change {
+        channel.articles.count
       }
     end
   end
