@@ -1,4 +1,3 @@
-
 <%= javascript_include_tag "iframe" %>
 
 <h1><%= @channel.name %></h1>
@@ -19,12 +18,13 @@
     <% @articles.each_slice(5).with_index do |slice, index| %>
     <% if index == 0 %>
       <% slice.each do |article| %>
-        <div clalihafdss="active item"><%= link_to "#{article.title}", article.url, class: "news_link" %>
+        <div class="active item"><%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
         </div>
       <% end %>
     <% else %>
       <% slice.each do |article| %>
-        <div class="item"><%= link_to "#{article.title}", article.url, class: "news_link" %>
+      <%= article.id %><br>
+        <div class="item"><%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
         </div>
       <% end %>
     <% end %>
@@ -32,3 +32,4 @@
 <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
   <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
+

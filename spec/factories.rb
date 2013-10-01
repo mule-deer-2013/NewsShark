@@ -8,13 +8,13 @@ FactoryGirl.define do
   end
 
   factory :channel do
-    name { "Egypt" }
+    name { "Pants" }
     user
   end
 
-  factory :article do 
+  factory :article do
     title { "Title" }
-    url { 'http://www.spacex.com/webcast/' }
+    url { "This string only here for validations..." }
     channel
   end
 
