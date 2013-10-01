@@ -1,7 +1,11 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-fixed-top" style="height: 20px">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "NewsShark", '#', id: "logo" %>
+      <% if current_user %>
+        <h3><%= link_to "NewsShark", user_path(current_user)%></h3>
+      <% else %>
+        <h3><%= link_to "NewsShark", root_path %></h3>        
+      <% end %>
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
