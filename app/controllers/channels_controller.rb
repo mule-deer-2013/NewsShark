@@ -1,5 +1,4 @@
 class ChannelsController < ApplicationController
-
   def create
     channel = Channel.new(params[:channel])
     channel.user = User.find(params[:user_id])
@@ -18,4 +17,15 @@ class ChannelsController < ApplicationController
     @articles = @channel.articles
   end
 
+  def destroy
+    channel = Channel.find(params[:id])
+    
+    if channel.user == current_user
+      channel.destroy
+    else
+      "You cannot delete this channel"
+    end
+
+    redirect_to user_path current_user
+  end
 end

@@ -4,6 +4,9 @@
 <h3>Your Channels</h3>
 <ul>
 <% @user_channels.each do |channel| %>
-  <li><%= link_to channel.name, [@user, channel] %></li>  
+  <li><%= link_to channel.name, [@user, channel] %></li>
+    <ul>
+        <li><%= link_to 'delete station', [@user, channel], :confirm => "Are you sure you want to delete this station?", :method => :delete %></li>
+    </ul>  
 <% end %>
 </ul>
