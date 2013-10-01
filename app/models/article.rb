@@ -6,6 +6,13 @@ class Article < ActiveRecord::Base
   belongs_to :channel
   validates_presence_of :title, :url
   validates_uniqueness_of :url, scope: :channel_id
+  before_create :set_publication
+
+  def set_publication
+    publication = self.url.sub(/^https?:\/\/(www\.)?/, '')
+    self.publication = publication.sub(/(.com||.org(.eg)?||.net)?\/.*$/, '')
+  end
+
 
   def update_user_feedback(value)
     self.user_feedback = value unless self.user_feedback == value
