@@ -9,6 +9,7 @@ group :production, :development do
   # so that we don't hit the internet on tests
 end
 
+gem 'thin'
 gem 'pg'
 gem 'postgres_ext'
 gem 'nokogiri'
