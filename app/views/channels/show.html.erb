@@ -23,7 +23,6 @@
       <% end %>
     <% else %>
       <% slice.each do |article| %>
-      <%= article.id %><br>
         <div class="item"><%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
         </div>
       <% end %>

@@ -13,8 +13,8 @@ FactoryGirl.define do
   end
 
   factory :article do
-    title { "Title" }
-    url { "This string only here for validations..." }
+    title { Faker::Lorem.word }
+    url { Faker::Internet.url }
     channel
   end
 
