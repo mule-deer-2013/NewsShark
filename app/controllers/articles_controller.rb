@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
     channel.update_preferences_from(article)
     channel.save
 
-    render 'channels/show'
+    redirect_to :back
   end
 
 end

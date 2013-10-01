@@ -31,5 +31,4 @@ describe ArticlesController do
     end
   end
 
-
 end
