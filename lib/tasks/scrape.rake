@@ -1,4 +1,4 @@
-namespace :scrape do 
+namespace :scrape do
   task :channels => :environment do
     Channel.all.each do |channel|
       channel.scrape_for_articles
@@ -8,7 +8,7 @@ namespace :scrape do
   task :set_keywords => :channels do
     Channel.all.each do |channel|
       channel.articles.each do |article|
-        article.set_keywords
+        ArticleWorker.perform_async(article.id)
       end
     end
   end
