@@ -10,6 +10,7 @@ describe Recommender do
         articles = channel.articles.limit(5)
         articles.each do |article|
           article.user_feedback = (rand(-1..1))
+          article.save
         end
         expect(Recommender.enough_rated_articles?(channel)).to be_true
       end

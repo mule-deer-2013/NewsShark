@@ -18,7 +18,9 @@ describe Channel do
       end
       context "with one rated article" do
         it "returns one less unrated article" do
-          channel.articles.first.user_feedback = (rand(-1..1))
+          article = channel.articles.first
+          article.user_feedback = (rand(-1..1))
+          article.save
           expect(channel.unrated_articles.count).to eq channel.articles.count - 1
         end
       end
