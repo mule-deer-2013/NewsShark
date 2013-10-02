@@ -22,7 +22,9 @@ describe ArticlesController do
       it "updates user_feedback for article" do
         expect {
           put :update, params
-        }.to change(article.user_feedback)
+        }.to change {
+          article.user_feedback
+        }
       end
 
       it "updates preferences of channel" do

@@ -29,7 +29,7 @@ describe ChannelsController do
       end
 
       it "does not create a new channel" do
-        expect{
+        expect {
           post :create, invalid_params
         }.to_not change{ Channel.count }
       end

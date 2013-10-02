@@ -31,7 +31,7 @@ feature 'user signin', :js => true do
     let(:user) { FactoryGirl.create(:user) }
 
     it 'displays success message' do
-      visit signin_path
+      visit new_user_path
       fill_in "Email", :with => user.email
       fill_in "Password", :with => user.password
       click_button "Sign in"
@@ -41,7 +41,7 @@ feature 'user signin', :js => true do
 
   context 'with invalid params' do
     it 'displays error message(s)' do
-      visit signin_path
+      visit new_user_path
       fill_in "Email", :with => ''
       fill_in "Password", :with => ''
       click_button "Sign in"
@@ -61,7 +61,7 @@ feature 'User signout', :js => true do
   let(:user) { FactoryGirl.create(:user) }
 
   it 'displays sign out message' do
-    visit signin_path
+    visit new_user_path
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
     click_button 'Sign in'
