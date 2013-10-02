@@ -33,9 +33,6 @@ describe Recommender do
 
     it "returns a hash of article ids and their (un-updated) closeness points" do
       Recommender.stub :enough_rated_articles? => true
-      p Recommender.rank_closeness(channel.id).keys
-      p Recommender.rank_closeness(channel.id).values
-
       expect(Recommender.rank_closeness(channel.id).keys).to eq channel.articles.map { |article| article.id }
       expect(Recommender.rank_closeness(channel.id).values).to eq [0]*15
     end
@@ -43,8 +40,14 @@ describe Recommender do
 
   context "Recommender.best_articles_ranked" do
     it "returns an array of articles ranked by closeness points" do
-      Recommender.stub :rank_closeness => { 1 => 2, 2 => -1, 3 => 0, 4 => 5 }
-      expect(Recommender.best_articles_ranked(channel.id)).to eq [4, 1, 3, 2]
+      Recommender.stub :rank_closeness => { 1 => 2,
+                                            2 => -1,
+                                            3 => 0,
+                                            4 => 5 }
+      expect(Recommender.best_articles_ranked(channel.id)).to eq [ Article.find(4),
+                                                                   Article.find(1),
+                                                                   Article.find(3),
+                                                                   Article.find(2) ]
     end
   end
 end
