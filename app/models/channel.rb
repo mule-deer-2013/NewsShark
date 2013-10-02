@@ -6,7 +6,7 @@ class Channel < ActiveRecord::Base
   validates_presence_of :name
 
   belongs_to :user
-  has_many :articles
+  has_many :articles, dependent: :destroy
 
   SCALING_FACTOR = 10.0
 
