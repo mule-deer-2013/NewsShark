@@ -9,7 +9,7 @@ describe Recommender do
       it "returns true" do
         articles = channel.articles.limit(5)
         articles.each do |article|
-          article.update_user_feedback!(rand(-1..1))
+          article.user_feedback = (rand(-1..1))
         end
         expect(Recommender.enough_rated_articles?(channel)).to be_true
       end
@@ -19,7 +19,7 @@ describe Recommender do
       it "returns false" do
         articles = channel.articles.limit(2)
         articles.each do |article|
-          article.update_user_feedback!(rand(-1..1))
+          article.user_feedback = (rand(-1..1))
         end
         expect(Recommender.enough_rated_articles?(channel)).to be_false
       end

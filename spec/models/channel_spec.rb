@@ -18,7 +18,7 @@ describe Channel do
       end
       context "with one rated article" do
         it "returns one less unrated article" do
-          channel.articles.first.update_user_feedback!(rand(-1..1))
+          channel.articles.first.user_feedback = (rand(-1..1))
           expect(channel.unrated_articles.count).to eq channel.articles.count - 1
         end
       end
@@ -34,7 +34,7 @@ describe Channel do
 
     describe '#update_preferences_from' do
       let(:article) { channel.articles.first }
-      before { article.update_user_feedback!(1) }
+      before { article.user_feedback = (1) }
       before { article.stub :keywords => ['Obama','Politics','Election'] }
       before { article.stub :publication => 'Economist' }
 

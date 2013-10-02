@@ -16,18 +16,6 @@ describe Article do
     end
   end
 
-  context "#update_user_feedback" do
-    let(:article) { FactoryGirl.create :article }
-    it "updates user feedback with argument" do
-      expect {
-        article.update_user_feedback!(1)
-      }.to change {
-        article.user_feedback
-      }.from(nil).to(1)
-    end
-  end
-
-
   describe '#compute_closeness_to' do
     let(:article) { FactoryGirl.create :article }
     let(:channel) { article.channel }
@@ -46,7 +34,7 @@ describe Article do
     it "should destroy all of its articles" do
       pending
     end
-    
+
   end
 
 end
