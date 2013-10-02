@@ -7,6 +7,9 @@ class Article < ActiveRecord::Base
   validates_presence_of :title, :url
   validates_uniqueness_of :url, scope: :channel_id
   before_create :set_publication
+  after_create do
+    ArticleWorker.perform_async(self.id)
+  end
 
   def set_publication
     publication = self.url.sub(/^https?:\/\/(www\.)?/, '')
