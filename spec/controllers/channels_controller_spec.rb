@@ -38,15 +38,24 @@ describe ChannelsController do
   end
 
   describe "GET #show" do
-    let!(:channel) { FactoryGirl.create :channel }
+    let!(:channel) { FactoryGirl.create :channel_with_articles }
     let!(:params) { { :user_id => channel.user.id, :id => channel.id } }
 
     before { sign_in user }
+    before { get :show, params }
 
     it "renders the channel's show page" do
-      get :show, params
       response.should render_template 'show'
     end
+
+   it "assigns @articles to be an array of articles" do
+      channel.articles
+      articles = assigns(:articles)
+      expect(articles).to be_an Array
+      expect(articles[0]).to be_an Article
+      expect(articles.length).to eq channel.articles.length
+   end
+
   end
 
   describe "DELETE #destroy" do
