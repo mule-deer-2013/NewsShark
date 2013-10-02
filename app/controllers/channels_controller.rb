@@ -12,7 +12,6 @@ class ChannelsController < ApplicationController
 
   def show
     @channel = Channel.find(params[:id])
-    @channel.scrape_for_articles
     best_articles = Recommender.best_articles_ranked(@channel.id)
     @articles = ( best_articles.empty? ? @channel.unrated_articles : best_articles )
   end
