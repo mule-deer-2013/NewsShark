@@ -1,37 +1,60 @@
+// <script>
+
+//     // function tellUsAboutIt(){
+//     //   $.ajax({
+//     //     url:"secretsubmissionroute",
+//     //     type:"post",
+//     //     data:getCurrentArticle()
+//     //   })
+//     // }
+
+//     var prevent_bust = 0  
+//     window.onbeforeunload = function() { prevent_bust++ }  
+//     setInterval(function() {  
+//         if (prevent_bust > 0) {  
+//             prevent_bust -= 2  
+//             // 204 header response prevents redirect
+//             window.top.location = "#"
+//             tellUsAboutIt()
+//             hitNext()
+//         }  
+//     }, 1)  
+// </script>
 <h1><%= @channel.name %></h1>
-      <ul>
-        <li><%= link_to 'delete station', {:controller => :channels, :action => 'destroy'}, :confirm => "Are you sure you want to delete this station?", :method => :delete %></li>
-      </ul>
+<ul>
+  <li><%= link_to 'delete station', {:controller => :channels, :action => 'destroy'}, :confirm => "Are you sure you want to delete this station?", :method => :delete %></li>
+</ul>
 <% focus_article = @articles.first %>
-****************************************************<br>
-<%= @articles.first.keywords %><br>
-****************************************************<br>
-<%= @channel.preferenced_keywords %><br>
-****************************************************<br>
 <iframe id='iframe_window' src='<%=focus_article.url%>' width="720" height="720"></iframe>
 <%= render partial: 'articles/feedback_form', locals: { article: focus_article } %>
 
-<div id="myCarousel" class="carousel slide" data-interval="false">
-  <ol class="carousel-indicators">
+<div id="myCarousel" class="carousel slide" data-interval="false" wrap="true" style="background:grey; height:100px;">
+  <!-- <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
+  </ol> -->
+  <div class="carousel-inner" style="background:red; height:100px">
     <% @articles.each_slice(5).with_index do |slice, index| %>
-    <% if index == 0 %>
-      <% slice.each do |article| %>
-        <div class="active item"><%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
+      <% if index == 0 %>
+        <div class="active item">
+          <% slice.each do |article| %>
+            <div >
+              <%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    <% else %>
-      <% slice.each do |article| %>
-        <div class="item"><%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
+      <% else %>
+        <div class="item">
+          <% slice.each do |article| %>
+            <div >
+              <%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     <% end %>
-    <% end %>
-<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
-
