@@ -47,6 +47,12 @@ describe ChannelsController do
       get :show, params
       response.should render_template 'show'
     end
+
+   it "assigns @articles to be an array of 10 article" do
+      get :show, params
+      response.should render_template 'show'
+    end
+
   end
 
   describe "DELETE #destroy" do

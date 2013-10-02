@@ -14,12 +14,13 @@ class ChannelsController < ApplicationController
   def show
     @channel = Channel.find(params[:id])
     @channel.scrape_for_articles
-    @articles = @channel.articles
+    # @articles = @channel.articles
+    @articles = Article.where(:id => Recommender.best_ten_articles(@channel))
   end
 
   def destroy
     channel = Channel.find(params[:id])
-    
+
     if channel.user == current_user
       channel.destroy
     else
