@@ -2,9 +2,9 @@ class NewsScraper
 
   def self.scrape(search_term)
     articles = {}
-    doc = Nokogiri::HTML(open("https://www.google.com/search?hl=en&tbm=nws&q=#{search_term.gsub(' ', '+')}&gs_l=news"))
+    doc = Mechanize.new.get("https://www.google.com/search?hl=en&tbm=nws&q=#{search_term.gsub(' ', '+')}&gs_l=news")
 
-    doc.xpath('//a').each do |link|
+    doc.search('//a').each do |link|
       if is_worth_saving?(link)
         begin
           title = link.inner_text
