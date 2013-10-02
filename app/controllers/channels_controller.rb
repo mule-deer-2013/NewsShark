@@ -10,23 +10,16 @@ class ChannelsController < ApplicationController
     end
   end
 
-
   def show
     @channel = Channel.find(params[:id])
     @channel.scrape_for_articles
-    # @articles = @channel.articles
-    @articles = Article.where(:id => Recommender.best_ten_articles(@channel))
+    best_articles = Recommender.best_articles_ranked(@channel.id)
+    @articles = ( best_articles.empty? ? @channel.articles : best_articles )
   end
 
   def destroy
     channel = Channel.find(params[:id])
-
-    if channel.user == current_user
-      channel.destroy
-    else
-      "You cannot delete this channel"
-    end
-
+    channel.user == current_user ? channel.destroy : "You cannot delete this channel"
     redirect_to user_path current_user
   end
 end
