@@ -1,6 +1,5 @@
 namespace :scrape do 
   task :channels => :environment do
-    puts "yo"
     Channel.all.each do |channel|
       channel.scrape_for_articles
     end
