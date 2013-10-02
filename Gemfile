@@ -9,6 +9,7 @@ group :production, :development do
   # so that we don't hit the internet on tests
 end
 
+gem 'thin'
 gem 'pg'
 gem 'postgres_ext'
 gem 'nokogiri'
@@ -16,13 +17,14 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'sidekiq'
 gem 'activerecord-postgres-hstore'
 gem 'jquery-rails'
+#gem 'clockwork'
 
 # Gems used only for assets and not required
 # in production environments by default.
+gem 'less-rails-bootstrap'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'less-rails-bootstrap'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
@@ -30,16 +32,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'typhoeus', '0.4.2'
-
 group :test, :development do
   gem 'rspec-rails'
   gem 'debugger'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'sextant'
-  gem 'vcr', '2.2.5'
-
 end
 
 group :test do
