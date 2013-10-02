@@ -56,7 +56,7 @@ class Channel < ActiveRecord::Base
   def increment(field, key, value)
     preferenced_ = "preferenced_#{field}s"
     setter = preferenced_.to_sym
-    self.send(setter)[key] = self.send(setter)[key].to_i + value
+    self.send(setter)[key] = self.send(setter)[key].to_i + value.to_i
   end
 
 end
