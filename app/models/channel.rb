@@ -42,7 +42,7 @@ class Channel < ActiveRecord::Base
     increment_keywords(article.keywords, article.user_feedback)
   end
 
-  private
+  # private
   def increment_publications(publication, user_feedback)
     increment('publication', publication, user_feedback)
   end
@@ -58,5 +58,8 @@ class Channel < ActiveRecord::Base
     setter = preferenced_.to_sym
     self.send(setter)[key] = self.send(setter)[key].to_i + value.to_i
   end
+
+  # JW: Consider having just one "preferences" field of type "text" in the database
+  #     and using JSON to serialize the structured data
 
 end

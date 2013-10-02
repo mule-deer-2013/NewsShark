@@ -11,7 +11,10 @@ class ChannelsController < ApplicationController
   end
 
   def show
+    # JW: Any logged-in user can view another user's channels. BAD!
+    # JW: Look into can-can if you want to fine-tune authorization.
     @channel = Channel.find(params[:id])
+    render status: 401, text: "<h1>401 Unauthorized</h1>" unless @channel.user == current_user
     best_articles = Recommender.best_articles_ranked(@channel.id)
     @articles = ( best_articles.empty? ? @channel.unrated_articles : best_articles )
   end
