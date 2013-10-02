@@ -11,7 +11,8 @@
  *= require_self
  *= require_tree .
  */
-*= require twitter/bootstrap
+
+/* TODO-JW: move the code below to another css file in this folder */
 
 body {
   margin-top: 100px;
