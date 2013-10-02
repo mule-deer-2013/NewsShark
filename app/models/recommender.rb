@@ -1,5 +1,5 @@
-class Recommender < ActiveRecord::Base
-
+class Recommender
+  
   def self.rank_closeness(channel_id)
     channel = Channel.find(channel_id)
     closeness = {}
