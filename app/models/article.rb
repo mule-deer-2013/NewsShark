@@ -16,6 +16,7 @@ class Article < ActiveRecord::Base
     self.publication = publication.sub(/(.com||.org(.eg)?||.net)?\/.*$/, '')
   end
 
+  # JW: this seems like a bad idea
   def update_user_feedback!(value)
     self.user_feedback = value unless self.user_feedback == value
     self.save
