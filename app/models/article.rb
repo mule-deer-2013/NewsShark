@@ -13,9 +13,22 @@ class Article < ActiveRecord::Base
     self.publication = publication.sub(/(.com||.org(.eg)?||.net)?\/.*$/, '')
   end
 
-
-  def update_user_feedback(value)
+  def update_user_feedback!(value)
     self.user_feedback = value unless self.user_feedback == value
+    self.save
+  end
+
+  def compute_closeness
+    closeness = 0
+    channel = self.channel
+    # when we use attributes this will be channel.send(attribute)
+    channel.preferenced_keywords.each_pair do |term, karma|
+      if (term.in?(self.keywords) && karma.to_i.abs >= channel.minimum_karma_for_relevancy)
+        closeness += karma.to_i
+      end
+    end
+
+    closeness
   end
 
   def set_keywords
