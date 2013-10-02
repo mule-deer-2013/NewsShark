@@ -7,6 +7,7 @@ class Channel < ActiveRecord::Base
 
   belongs_to :user
   has_many :articles, dependent: :destroy
+  after_create :scrape_for_articles
 
   SCALING_FACTOR = 10.0
 
@@ -27,9 +28,6 @@ class Channel < ActiveRecord::Base
     articles.each_pair do |title, url|
       begin
         article = self.articles.create(title: title, url: url)
-        if article.valid?
-          ArticleWorker.perform_async(article.id)
-        end
       rescue
       end
     end
