@@ -18,12 +18,8 @@ class Channel < ActiveRecord::Base
     self.articles.where(user_feedback: nil)
   end
 
-  def rated_articles_count
-    rated_articles.count
-  end
-
   def minimum_karma_for_relevancy
-    self.rated_articles_count/SCALING_FACTOR
+    self.rated_articles.count/SCALING_FACTOR
   end
 
   def scrape_for_articles
