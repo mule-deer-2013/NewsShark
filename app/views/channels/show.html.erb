@@ -21,7 +21,7 @@
     <% @articles.each_slice(5).with_index do |slice, index| %>
     <% if index == 0 %>
       <% slice.each do |article| %>
-        <div class="active item"><%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
+        <div class="active item"><%= link_to "#{article.title}", article.url, "data-action" => user_channel_article_path(article.channel.user, article.channel, article), class: "news_link" %>
         </div>
       <% end %>
     <% else %>
