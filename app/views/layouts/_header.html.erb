@@ -4,13 +4,13 @@
       <% if current_user %>
         <h3><%= link_to "NewsShark", user_path(current_user)%></h3>
       <% else %>
-        <h3><%= link_to "NewsShark", root_path %></h3>        
+        <h3><%= link_to "NewsShark", root_path %></h3>
       <% end %>
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
-           <li><%= button_to "Sign out", {:controller => :sessions, :action => 'destroy'}, :method => :delete %></li>
+           <li><%= button_to "Sign out", signout_path, :method => :delete %></li>
           <% else %>
              <%= form_for(:session, url: sessions_path) do |f| %>
              <li><%= f.label :email %>
