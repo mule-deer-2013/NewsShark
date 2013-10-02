@@ -32,6 +32,8 @@ class Article < ActiveRecord::Base
   end
 
   def set_keywords
+    # if this was checking self.check_keywords instead, and self.checked_keywords got set true at the end
+    # i think we would spend less tim checking keywords
     if self.keywords.empty?
       begin
         # page = MetaInspector.new(self.url)
