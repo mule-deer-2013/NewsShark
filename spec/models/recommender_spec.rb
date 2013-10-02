@@ -2,7 +2,7 @@ require 'support/meta_inspector_fake'
 require 'spec_helper'
 
 describe Recommender do
-  let(:channel) { FactoryGirl.create(:channel_with_articles) }
+  let(:channel) { FactoryGirl.create(:channel) }
 
   describe ".enough_rated_articles?" do
     context "with 5 rated articles" do
@@ -34,7 +34,7 @@ describe Recommender do
     it "returns a hash of article ids and their (un-updated) closeness points" do
       Recommender.stub :enough_rated_articles? => true
       expect(Recommender.rank_closeness(channel.id).keys).to eq channel.articles.map { |article| article.id }
-      expect(Recommender.rank_closeness(channel.id).values).to eq [0]*15
+      expect(Recommender.rank_closeness(channel.id).values).to eq [0]*channel.articles.count
     end
   end
 
