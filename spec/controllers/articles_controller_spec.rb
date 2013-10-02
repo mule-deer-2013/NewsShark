@@ -20,7 +20,7 @@ describe ArticlesController do
       before { Article.stub(:find => article) }
 
       it "updates user_feedback for article" do
-        article.should_receive(:update_user_feedback!).with(article.id.to_s)
+        article.should_receive(:update_user_feedback!).with(params[:user_feedback].to_s)
         put :update, params
       end
 
@@ -31,7 +31,7 @@ describe ArticlesController do
 
       it "redirects to channel show path" do
         put :update, params
-        response.should redirect_to user_channel_path(channel)
+        response.should redirect_to user_channel_path(user, channel)
       end
     end
   end
