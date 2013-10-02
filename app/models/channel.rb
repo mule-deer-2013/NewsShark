@@ -8,14 +8,18 @@ class Channel < ActiveRecord::Base
   belongs_to :user
   has_many :articles
 
-  SCALING_FACTOR = 3.0
+  SCALING_FACTOR = 10.0
+
+  def rated_articles
+    self.articles - self.articles.where(user_feedback: nil)
+  end # needs a test
 
   def unrated_articles
     self.articles.where(user_feedback: nil)
   end
 
   def rated_articles_count
-    (self.articles.count) - (unrated_articles.count)
+    rated_articles.count
   end
 
   def minimum_karma_for_relevancy

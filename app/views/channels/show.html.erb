@@ -5,6 +5,11 @@
         <li><%= link_to 'delete station', {:controller => :channels, :action => 'destroy'}, :confirm => "Are you sure you want to delete this station?", :method => :delete %></li>
       </ul>
 <% focus_article = @articles.first %>
+****************************************************<br>
+<%= @articles.first.keywords %><br>
+****************************************************<br>
+<%= @channel.preferenced_keywords %><br>
+****************************************************<br>
 <iframe id='iframe_window' src='<%=focus_article.url%>' width="720" height="720"></iframe>
 <%= render partial: 'articles/feedback_form', locals: { article: focus_article } %>
 
