@@ -42,4 +42,11 @@ describe Article do
     end
   end
 
+  context "when destroyed" do
+    it "should destroy all of its articles" do
+      pending
+    end
+    
+  end
+
 end
