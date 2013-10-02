@@ -1,10 +1,11 @@
 class Recommender
-  
+
   MINIMUM_FEEDBACK = 3
 
   def self.enough_rated_articles?(channel)
     channel.rated_articles.count >= MINIMUM_FEEDBACK
   end
+
   def self.rank_closeness(channel_id)
     channel = Channel.find(channel_id)
     closeness = {}

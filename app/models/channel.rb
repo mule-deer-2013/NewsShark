@@ -1,22 +1,26 @@
 class Channel < ActiveRecord::Base
-  serialize :preferenced_keywords, ActiveRecord::Coders::Hstore
 
   attr_accessible :name, :user_id, :preferenced_keywords
 
   validates_presence_of :name
 
+  serialize :preferenced_publications, ActiveRecord::Coders::Hstore
+  serialize :preferenced_keywords, ActiveRecord::Coders::Hstore
+
   belongs_to :user
+
   has_many :articles, dependent: :destroy
+
   after_create :scrape_for_articles
 
   SCALING_FACTOR = 10.0
 
-  def rated_articles
-    self.articles - self.articles.where(user_feedback: nil)
-  end # needs a test
-
   def unrated_articles
     self.articles.where(user_feedback: nil)
+  end
+
+  def rated_articles
+    self.articles - self.articles.where(user_feedback: nil)
   end
 
   def minimum_karma_for_relevancy
@@ -34,14 +38,25 @@ class Channel < ActiveRecord::Base
   end
 
   def update_preferences_from(article)
-    increment_values_for(article.keywords, article.user_feedback)
+    increment_publications(article.publication, article.user_feedback)
+    increment_keywords(article.keywords, article.user_feedback)
   end
 
   private
-  def increment_values_for(keywords, user_feedback)
+  def increment_publications(publication, user_feedback)
+    increment('publication', publication, user_feedback)
+  end
+
+  def increment_keywords(keywords, user_feedback)
     keywords.each do |keyword|
-      self.preferenced_keywords[keyword] = self.preferenced_keywords[keyword].to_i + user_feedback
+      increment('keyword', keyword, user_feedback)
     end
+  end
+
+  def increment(field, key, value)
+    preferenced_ = "preferenced_#{field}s"
+    setter = preferenced_.to_sym
+    self.send(setter)[key] = self.send(setter)[key].to_i + value
   end
 
 end
