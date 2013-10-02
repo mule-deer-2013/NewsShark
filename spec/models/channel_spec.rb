@@ -47,6 +47,7 @@ describe Channel do
           channel.preferenced_keywords
         }
       end
+
       it "sets the publications based on the publication for an article" do
         expect {
           channel.update_preferences_from(article)

@@ -15,6 +15,9 @@ class Channel < ActiveRecord::Base
 
   SCALING_FACTOR = 10.0
 
+  KARMA_WEIGHTS = { 'publication' => 0.70,
+                    'keyword' => 0.30 }
+
   def unrated_articles
     self.articles.where(user_feedback: nil)
   end
@@ -38,15 +41,12 @@ class Channel < ActiveRecord::Base
   end
 
   def update_preferences_from(article)
-    increment_publications(article.publication, article.user_feedback)
     increment_keywords(article.keywords, article.user_feedback)
+    increment('publication', article.publication, article.user_feedback)
   end
 
-  # private
-  def increment_publications(publication, user_feedback)
-    increment('publication', publication, user_feedback)
-  end
-
+  private
+  # keywords needs its own method since it's an array in articles.
   def increment_keywords(keywords, user_feedback)
     keywords.each do |keyword|
       increment('keyword', keyword, user_feedback)
@@ -56,7 +56,8 @@ class Channel < ActiveRecord::Base
   def increment(field, key, value)
     preferenced_ = "preferenced_#{field}s"
     setter = preferenced_.to_sym
-    self.send(setter)[key] = self.send(setter)[key].to_i + value.to_i
+    self.send(setter)[key] = ( self.send(setter)[key].to_i + value.to_i ) * KARMA_WEIGHTS[field]
+    # This becomes "karma."
   end
 
   # JW: Consider having just one "preferences" field of type "text" in the database

@@ -2,6 +2,9 @@ class Article < ActiveRecord::Base
 
   include MetaInspector
 
+  ATTRIBUTES = { :preferenced_keywords => :keywords ,
+                 :preferenced_publications => :publication }
+
   attr_accessible :title, :url, :channel_id, :keywords
   belongs_to :channel
   validates_presence_of :title, :url
@@ -23,17 +26,31 @@ class Article < ActiveRecord::Base
   end
 
   def compute_closeness
-    closeness = 0
     channel = self.channel
-    # when we use attributes this will be channel.send(attribute)
-    channel.preferenced_keywords.each_pair do |term, karma|
-      if (term.in?(self.keywords) && karma.to_i.abs >= channel.minimum_karma_for_relevancy)
-        closeness += karma.to_i
+    closeness = 0
+    ATTRIBUTES.each_pair do |channel_attrs, article_attr|
+      channel.send(channel_attrs).each_pair do |channel_attr, karma|
+        if ( channel_attr.in?(self.send(article_attr)) && karma.to_i.abs >= channel.minimum_karma_for_relevancy) )
+          closeness += karma.to_i
+        end
       end
     end
 
     closeness
   end
+
+  # def compute_closeness
+  #   closeness = 0
+  #   channel = self.channel
+  #   # when we use attributes this will be channel.send(attribute)
+  #   channel.preferenced_keywords.each_pair do |term, karma|
+  #     if (term.in?(self.keywords) && karma.to_i.abs >= channel.minimum_karma_for_relevancy)
+  #       closeness += karma.to_i
+  #     end
+  #   end
+
+  #   closeness
+  # end
 
   def set_keywords
     if self.keywords.empty?
