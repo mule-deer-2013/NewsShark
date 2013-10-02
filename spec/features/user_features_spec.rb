@@ -32,8 +32,8 @@ feature 'user signin', :js => true do
 
     it 'displays success message' do
       visit new_user_path
-      fill_in "Email", :with => user.email
-      fill_in "Password", :with => user.password
+      fill_in "session_email", :with => user.email
+      fill_in "session_password", :with => user.password
       click_button "Sign in"
       expect(page).to have_content( "Welcome Back Shark" )
     end
@@ -42,8 +42,8 @@ feature 'user signin', :js => true do
   context 'with invalid params' do
     it 'displays error message(s)' do
       visit new_user_path
-      fill_in "Email", :with => ''
-      fill_in "Password", :with => ''
+      fill_in "session_email", :with => ''
+      fill_in "session_password", :with => ''
       click_button "Sign in"
       expect(page).to have_content('Invalid email/password combination')
     end
@@ -62,8 +62,8 @@ feature 'User signout', :js => true do
 
   it 'displays sign out message' do
     visit new_user_path
-    fill_in "Email", :with => user.email
-    fill_in "Password", :with => user.password
+    fill_in "session_email", :with => user.email
+    fill_in "session_password", :with => user.password
     click_button 'Sign in'
     click_button 'Sign out'
     expect(page).to have_content("You have successfully logged out.")
