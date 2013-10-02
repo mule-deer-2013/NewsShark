@@ -51,7 +51,6 @@ describe ChannelsController do
    it "assigns @articles to be an array of articles" do
       channel.articles
       articles = assigns(:articles)
-      expect(articles).to be_an Array
       expect(articles[0]).to be_an Article
       expect(articles.length).to eq channel.articles.length
    end

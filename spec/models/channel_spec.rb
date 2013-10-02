@@ -24,21 +24,11 @@ describe Channel do
       end
     end
 
-    describe '#rated_articles_count' do
-      it "returns the number of rated articles" do
-        rated_this_many = 5
-        articles = channel.articles.limit(rated_this_many)
-        articles.each {|article| article.update_user_feedback!(rand(-1..1)) }
-        expect(channel.rated_articles_count).to eq rated_this_many
-        expect((channel.articles - channel.articles.where(user_feedback: nil)).count).to eq rated_this_many
-      end
-    end
-
     describe "#minimum_karma_for_relevancy" do
-      let(:scaling_factor) { 3.0 }
+      let(:scaling_factor) { 10.0 }
       it "returns the number of rated articles that a term must appear in to be relevant" do
-        channel.stub(:rated_articles_count => 5)
-        expect(channel.minimum_karma_for_relevancy).to eq (channel.rated_articles_count / scaling_factor)
+        channel.stub :rated_articles => ( [FactoryGirl.create(:article)] * 5 )
+        expect(channel.minimum_karma_for_relevancy).to eq (channel.rated_articles.count / scaling_factor)
       end
     end
 
