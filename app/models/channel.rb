@@ -45,7 +45,7 @@ class Channel < ActiveRecord::Base
   end
 
   # private
-  # keywords needs its own method since it's an array in articles.
+  # keywords needs its own method since it's an array, not a single value.
   def increment_keywords(keywords, user_feedback)
     keywords.each do |keyword|
       increment('keyword', keyword, user_feedback)
