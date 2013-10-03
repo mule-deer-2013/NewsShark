@@ -8,7 +8,6 @@ gem 'lingua'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production, :development do
-  gem 'metainspector'
   # so that we don't hit the internet on tests
 end
 

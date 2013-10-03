@@ -1,7 +1,5 @@
 class Article < ActiveRecord::Base
 
-  include MetaInspector
-
   attr_accessible :title, :url, :channel_id, :keywords, :author, :word_count, :kincaid, :flesch, :fog
   belongs_to :channel
   validates_presence_of :title, :url
