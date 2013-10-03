@@ -6,5 +6,4 @@ class ArticleWorker
     article = Article.find(article_id)
     article.set_keywords
   end
-
 end
