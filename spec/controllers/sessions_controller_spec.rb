@@ -1,3 +1,4 @@
+require 'support/meta_inspector_fake'
 require 'spec_helper'
 
 
@@ -60,7 +61,7 @@ describe SessionsController  do
 
       it "should redirect to root" do
         delete :destroy
-        page.should redirect_to signin_url # signin_url or _path?
+        page.should redirect_to new_user_path
       end
     end
 

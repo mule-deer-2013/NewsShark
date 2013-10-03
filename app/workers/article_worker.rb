@@ -1,4 +1,5 @@
 class ArticleWorker
+
   include Sidekiq::Worker
 
   def perform(article_id)
@@ -24,4 +25,5 @@ class ArticleWorker
     article.description = attributes[:description]
     article.save
   end
+
 end

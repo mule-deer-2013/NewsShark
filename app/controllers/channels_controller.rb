@@ -12,8 +12,13 @@ class ChannelsController < ApplicationController
 
   def show
     @channel = Channel.find(params[:id])
-    best_articles = Recommender.best_articles_ranked(@channel.id)
-    @articles = ( best_articles.empty? ? @channel.unrated_articles : best_articles )
+    if @channel.user == current_user
+      best_articles = Recommender.best_articles_ranked(@channel.id)
+      @articles = ( best_articles.empty? ? @channel.unrated_articles : best_articles )
+    else
+      render status: 401, text: "<h1>401 Unauthorized</h1>"
+    # JW: Look into can-can if you want to fine-tune authorization.
+    end
   end
 
   def destroy
@@ -22,3 +27,7 @@ class ChannelsController < ApplicationController
     redirect_to user_path current_user
   end
 end
+
+
+
+

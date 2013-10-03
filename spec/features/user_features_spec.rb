@@ -1,3 +1,4 @@
+require 'support/meta_inspector_fake'
 require 'spec_helper'
 
 feature 'user signup', :js => true do
@@ -10,7 +11,7 @@ feature 'user signup', :js => true do
       fill_in "user_password", :with => "newsshark"
       fill_in "Password confirmation", :with => "newsshark"
       click_button "Sign up"
-      expect(page).to have_content( "Welcome!" )
+      expect(page).to have_content( "Welcome" )
     end
   end
   it 'displays error message(s)' do
@@ -31,19 +32,19 @@ feature 'user signin', :js => true do
     let(:user) { FactoryGirl.create(:user) }
 
     it 'displays success message' do
-      visit signin_path
-      fill_in "Email", :with => user.email
-      fill_in "Password", :with => user.password
+      visit new_user_path
+      fill_in "session_email", :with => user.email
+      fill_in "session_password", :with => user.password
       click_button "Sign in"
-      expect(page).to have_content( "Welcome Back Shark" )
+      expect(page).to have_content( "Welcome" )
     end
   end
 
   context 'with invalid params' do
     it 'displays error message(s)' do
-      visit signin_path
-      fill_in "Email", :with => ''
-      fill_in "Password", :with => ''
+      visit new_user_path
+      fill_in "session_email", :with => ''
+      fill_in "session_password", :with => ''
       click_button "Sign in"
       expect(page).to have_content('Invalid email/password combination')
     end
@@ -61,9 +62,9 @@ feature 'User signout', :js => true do
   let(:user) { FactoryGirl.create(:user) }
 
   it 'displays sign out message' do
-    visit signin_path
-    fill_in "Email", :with => user.email
-    fill_in "Password", :with => user.password
+    visit new_user_path
+    fill_in "session_email", :with => user.email
+    fill_in "session_password", :with => user.password
     click_button 'Sign in'
     click_button 'Sign out'
     expect(page).to have_content("You have successfully logged out.")
