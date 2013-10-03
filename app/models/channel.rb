@@ -45,7 +45,7 @@ class Channel < ActiveRecord::Base
     increment('publication', article.publication, article.user_feedback)
   end
 
-  private
+  # private
   # keywords needs its own method since it's an array in articles.
   def increment_keywords(keywords, user_feedback)
     keywords.each do |keyword|
@@ -56,9 +56,10 @@ class Channel < ActiveRecord::Base
   def increment(field, key, value)
     preferenced_ = "preferenced_#{field}s"
     setter = preferenced_.to_sym
-    self.send(setter)[key] = ( self.send(setter)[key].to_i + value.to_i ) * KARMA_WEIGHTS[field]
+    self.send(setter)[key] = ( self.send(setter)[key].to_f ) + ( value.to_f * KARMA_WEIGHTS[field] )
     # This becomes "karma."
   end
+
 
   # JW: Consider having just one "preferences" field of type "text" in the database
   #     and using JSON to serialize the structured data
