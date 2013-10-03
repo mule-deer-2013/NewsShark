@@ -38,24 +38,36 @@ class Channel < ActiveRecord::Base
   end
 
   def update_preferences_from(article)
-    increment_keywords(article.keywords, article.user_feedback)
-    increment('publication', article.publication, article.user_feedback)
+    KARMA_WEIGHTS.keys.each do |attribute|
+      if    article.respond_to?( attribute.to_sym )
+        increment( attribute.to_s, article.send(attribute), article.user_feedback )
+      elsif article.respond_to?( attribute.pluralize.to_sym)
+        increment_array_attributes( attribute.to_s, article.send(attribute.pluralize.to_sym), article.user_feedback )
+      end
+    end
+    # increment_keywords(article.keywords, article.user_feedback)
+
+    # KARMA_WEIGHTS.keys.each do |attribute|
+    #   unless attribute == 'keyword'
+    #     increment(attribute, article.send(attribute), article.user_feedback)
+    #   end
+
     cleanup
   end
 
   def cleanup
     PREFERENCED_ATTRIBUTES.each do |method|
-      self.send(method).delete('nil')
-      self.send(method).delete(nil)
-      self.send(method).delete('')
+      DELETABLES.each do |deletable|
+        self.send(method).delete(deletable)
+      end
     end
   end
 
   # private
   # keywords needs its own method since it's an array, not a single value.
-  def increment_keywords(keywords, user_feedback)
-    keywords.each do |keyword|
-      increment('keyword', keyword, user_feedback)
+  def increment_array_attributes(field, keys, value)
+    keys.each do |key|
+      increment( field, key, value)
     end
   end
 
