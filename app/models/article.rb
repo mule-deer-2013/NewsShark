@@ -1,20 +1,16 @@
 class Article < ActiveRecord::Base
 
   attr_accessible :title, :url, :channel_id, :keywords, :author, :word_count, :kincaid, :datetime, :description
-
-  ATTRIBUTE_MAPPER = {  :preferenced_keywords => :keywords ,
-                        :preferenced_publications => :publication }
-
-  belongs_to :channel
+  include ChannelArticleMapper
 
   validates_presence_of :title, :url
   validates_uniqueness_of :url, scope: :channel_id
 
-  before_create :set_publication
+  belongs_to :channel
 
-  after_create do
-    ArticleWorker.perform_async(self.id)
-  end
+  before_create :set_publication
+  
+  after_create { ArticleWorker.perform_async(self.id) }
 
   def set_publication
     publication = self.url.sub(/^https?:\/\/(www\.)?/, '')
@@ -34,6 +30,4 @@ class Article < ActiveRecord::Base
 
     closeness
   end
-
-
 end
