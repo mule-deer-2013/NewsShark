@@ -48,6 +48,8 @@ class Article < ActiveRecord::Base
         end
 
         self.keywords = self.keywords.uniq
+        self.keywords.delete('')
+
         self.save
 
       rescue
