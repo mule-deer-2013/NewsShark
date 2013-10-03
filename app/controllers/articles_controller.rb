@@ -8,9 +8,7 @@ class ArticlesController < ApplicationController
     channel.update_preferences_from(article)
     channel.save
 
-    user = channel.user
-
-    redirect_to user_channel_path(user, channel)
+    redirect_to channel
   end
 
 end

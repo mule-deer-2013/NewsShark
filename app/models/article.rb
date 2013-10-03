@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
 
-  include MetaInspector
+  # include MetaInspector
 
   attr_accessible :title, :url, :channel_id, :keywords
   belongs_to :channel

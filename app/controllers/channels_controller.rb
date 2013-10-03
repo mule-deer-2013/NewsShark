@@ -1,12 +1,13 @@
 class ChannelsController < ApplicationController
   def create
     channel = Channel.new(params[:channel])
-    channel.user = User.find(params[:user_id])
+    channel.user = current_user
+
     if channel.save
-      redirect_to user_channel_path(channel.user, channel)
+      redirect_to channel
     else
       flash[:notice] = channel.errors.full_messages.join(', ')
-      redirect_to channel.user
+      redirect_to current_user
     end
   end
 

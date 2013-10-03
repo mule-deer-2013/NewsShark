@@ -1,7 +1,7 @@
 <header class="navbar navbar-fixed-top" style="height: 20px">
   <div class="navbar-inner">
     <div class="container">
-      <% if current_user %>
+      <% if current_user && current_user.guest?%>
         <h3><%= link_to "NewsShark", user_path(current_user)%></h3>
       <% else %>
         <h3><%= link_to "NewsShark", root_path %></h3>  
@@ -11,6 +11,9 @@
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
+              <% if current_user.guest? %>
+                  <%= link_to "Sign Up", new_user_path%>
+                    <% end %>
            <li><%= button_to "Sign out", {:controller => :sessions, :action => 'destroy'}, :method => :delete %></li>
           <% else %>
              <%= form_for(:session, url: sessions_path) do |f| %>

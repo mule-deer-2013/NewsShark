@@ -1,4 +1,4 @@
-<%= form_for([@user, @channel]) do |f| %>
+<%= form_for(@channel) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.submit class: "btn"%>

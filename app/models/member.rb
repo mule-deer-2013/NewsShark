@@ -6,8 +6,8 @@ attr_accessible :email, :first_name, :last_name, :password, :password_confirmati
 
 has_secure_password  
   
-  def guest?
-    false
-  end
+ def guest?
+   false
+ end
   
 end
