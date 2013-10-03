@@ -14,12 +14,12 @@ class Recommender
         closeness[article.id] = article.compute_closeness
       end
     end
+
     closeness
   end
 
   def self.best_articles_ranked(channel_id)
     articles = []
-
     closeness = rank_closeness(channel_id)
     sorted = closeness.sort_by{|k,v| v}.reverse
     Hash[sorted].keys.each do |id|
