@@ -1,21 +1,19 @@
 class Channel < ActiveRecord::Base
 
-  attr_accessible :name, :user_id, :preferenced_keywords, :preferenced_publications
+  include ChannelArticleMapper
+
+  attr_accessible :name, :user_id
 
   validates_presence_of :name
 
-  serialize :preferenced_publications, ActiveRecord::Coders::Hstore
-  serialize :preferenced_keywords, ActiveRecord::Coders::Hstore
+  PREFERENCED_ATTRIBUTES.each do |attribute|
+    serialize attribute, ActiveRecord::Coders::Hstore
+  end
 
   belongs_to :user
   has_many :articles, dependent: :destroy
 
   after_create :scrape_for_articles
-
-  KARMA_SCALING_FACTOR = 10.0
-
-  KARMA_WEIGHTS = { 'publication' => 0.70,
-                    'keyword' => 0.30 }
 
   def unrated_articles
     self.articles.where(user_feedback: nil)
@@ -42,6 +40,15 @@ class Channel < ActiveRecord::Base
   def update_preferences_from(article)
     increment_keywords(article.keywords, article.user_feedback)
     increment('publication', article.publication, article.user_feedback)
+    cleanup
+  end
+
+  def cleanup
+    PREFERENCED_ATTRIBUTES.each do |method|
+      self.send(method).delete('nil')
+      self.send(method).delete(nil)
+      self.send(method).delete('')
+    end
   end
 
   # private
