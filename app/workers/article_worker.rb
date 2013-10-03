@@ -4,6 +4,9 @@ class ArticleWorker
 
   def perform(article_id)
     article = Article.find(article_id)
-    article.set_keywords
+    attributes = ArticleScraper.get_article_attributes(article.url)
+    attributes.each do |attribute, value|
+      article.update_attribute(attribute, value)
+    end
   end
 end

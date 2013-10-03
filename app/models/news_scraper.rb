@@ -20,10 +20,6 @@ class NewsScraper
     articles
   end
 
-  def self.keyword_scrape(url)
-    MetaInspector.new(url)
-  end
-
   private
   def self.is_worth_saving?(link)
     link.to_s.start_with?('<a href="/url?q=')

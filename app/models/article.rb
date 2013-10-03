@@ -1,8 +1,7 @@
 class Article < ActiveRecord::Base
 
+  attr_accessible :title, :url, :channel_id, :keywords, :author, :word_count, :kincaid, :datetime, :description
   include ChannelArticleMapper
-
-  attr_accessible :title, :url, :channel_id
 
   validates_presence_of :title, :url
   validates_uniqueness_of :url, scope: :channel_id
@@ -10,6 +9,7 @@ class Article < ActiveRecord::Base
   belongs_to :channel
 
   before_create :set_publication
+  
   after_create { ArticleWorker.perform_async(self.id) }
 
   def set_publication
@@ -30,29 +30,4 @@ class Article < ActiveRecord::Base
 
     closeness
   end
-
-  def set_keywords
-    if self.keywords.empty?
-      begin
-        page = NewsScraper.keyword_scrape(self.url)
-
-        if (words = ( page.meta_news_keywords || page.meta_keywords || page.meta_keyword ) )
-          keywords = words.split(',')
-          keywords.map! { |word| word.strip }
-          keywords.each do |keyword|
-            self.keywords += [keyword.downcase]
-          end
-        end
-
-        self.keywords = self.keywords.uniq
-        self.keywords.delete('')
-        self.save
-
-      rescue
-        self.destroy
-      end
-
-    end
-  end
-
 end
