@@ -5,6 +5,7 @@ describe Channel do
   context "Validations and Associations" do
     it { should validate_presence_of :name }
     it { should belong_to :user }
+    it { should have_many(:articles).dependent(:destroy) }
   end
 
   context "With associated articles" do
@@ -16,6 +17,7 @@ describe Channel do
           expect(channel.unrated_articles.count).to eq channel.articles.count
         end
       end
+
       context "with one rated article" do
         it "returns one less unrated article" do
           article = channel.articles.first
@@ -28,6 +30,7 @@ describe Channel do
 
     describe "#minimum_karma_for_relevancy" do
       let(:scaling_factor) { 10.0 }
+
       it "returns the number of rated articles that a term must appear in to be relevant" do
         channel.stub :rated_articles => ( [FactoryGirl.create(:article)] * 5 )
         expect(channel.minimum_karma_for_relevancy).to eq (channel.rated_articles.count / scaling_factor)
@@ -36,6 +39,7 @@ describe Channel do
 
     describe '#update_preferences_from' do
       let(:article) { channel.articles.first }
+
       before { article.user_feedback = (1) }
       before { article.stub :keywords => ['Obama','Politics','Election'] }
       before { article.stub :publication => 'Economist' }
@@ -56,7 +60,6 @@ describe Channel do
         }
       end
     end
-
   end
 
   context "Without associated articles" do

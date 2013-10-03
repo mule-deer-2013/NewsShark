@@ -10,7 +10,6 @@ describe Article do
 
   context "#set_keywords" do
     let(:article) { FactoryGirl.create :article }
-
     it "sets keywords" do
       expect{
         article.set_keywords
@@ -23,18 +22,15 @@ describe Article do
     let(:channel) { article.channel }
 
     it "returns the closeness of an article to its channel" do
-      channel.stub :preferenced_keywords => ({"these" => "3", "are" => "1", "the" => "2", "preferenced keywords" => "0" })
-      article.stub :keywords => ["these", "are"]
       channel.stub :minimum_karma_for_relevancy => 2
 
-      expect(article.compute_closeness).to eq 3
-    end
-  end
+      article.stub :keywords => ["these", "are"]
+      article.stub :publication => "nytimes"
 
-  context "when destroyed" do
+      channel.stub :preferenced_keywords => ({"these" => "3", "are" => "1", "the" => "2", "preferenced keywords" => "0" })
+      channel.stub :preferenced_publications => ({"nytimes" => "3", "economist" => "1"})
 
-    it "should destroy all of its articles" do
-      pending
+      expect(article.compute_closeness).to eq 6
     end
   end
 
