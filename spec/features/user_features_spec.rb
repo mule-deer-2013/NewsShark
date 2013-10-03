@@ -4,24 +4,20 @@ require 'spec_helper'
 
 feature 'channels', :js => true do
   let(:user) { FactoryGirl.create(:user) }
+  before do
+    visit new_user_path
+    fill_in "session_email", :with => user.email
+    fill_in "session_password", :with => user.password
+    click_button "Sign in"
+    fill_in "channel_name", :with => "Egypt"
+    click_button 'Create Channel'
+  end
   context 'creating a channel' do
     it 'creates a new channel' do
-      visit new_user_path
-      fill_in "session_email", :with => user.email
-      fill_in "session_password", :with => user.password
-      click_button "Sign in"
-      fill_in "channel_name", :with => "Egypt"
-      click_button 'Create Channel'
       expect(page).to have_content( "Egypt" )
     end
 
     it 'shows all user channels' do
-      visit new_user_path
-      fill_in "session_email", :with => user.email
-      fill_in "session_password", :with => user.password
-      click_button "Sign in"
-      fill_in "channel_name", :with => "Egypt"
-      click_button 'Create Channel'
       click_link 'Home'
       expect(page).to have_content( "Egypt" )
     end
@@ -29,12 +25,6 @@ feature 'channels', :js => true do
 
   context 'deleting channel' do
     it 'should delete a channel' do
-      visit new_user_path
-      fill_in "session_email", :with => user.email
-      fill_in "session_password", :with => user.password
-      click_button "Sign in"
-      fill_in "channel_name", :with => "Egypt"
-      click_button 'Create Channel'
       click_link 'delete station'
       page.driver.browser.switch_to.alert.accept
       expect(page).to_not have_content( "Egypt" )
