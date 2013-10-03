@@ -10,8 +10,18 @@ NewsShark::Application.routes.draw do
         resources :articles, only: [:update]
     end
   end
-
+ 
   root to: 'users#show'
 
-end
 
+  resources :guests, :path => "users" do
+    resources :channels, only: [:create, :show, :destroy] do
+      resources :articles, only: [:update]
+    end
+  end
+  resources :members, :path => "users" do
+    resources :channels, only: [:create, :show, :destroy] do
+      resources :articles, only: [:update]
+    end
+  end
+end

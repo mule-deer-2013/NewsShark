@@ -39,6 +39,7 @@ group :test, :development do
   gem 'pry-rails'
   gem 'better_errors'
   gem 'sextant'
+  gem 'binding_of_caller'
 end
 
 group :test do

@@ -4,7 +4,8 @@
       <% if current_user %>
         <h3><%= link_to "NewsShark", user_path(current_user)%></h3>
       <% else %>
-        <h3><%= link_to "NewsShark", root_path %></h3>        
+        <h3><%= link_to "NewsShark", root_path %></h3>  
+        <p><%= link_to 'Want to give Newshark a try?', users_path(:type => "guest"), method: :post %></p>      
       <% end %>
       <nav>
         <ul class="nav pull-right">
