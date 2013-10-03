@@ -6,7 +6,7 @@ describe ArticleWorker do
     let(:article) { FactoryGirl.build(:article) }
     it "should start background JERBS!" do
       ArticleWorker.perform_async(article.id)
-      expect(ArticleWorker).to have(15).enqueued.jobs
+      expect(ArticleWorker).to have_at_least(1).enqueued.jobs
     end
   end
 end
