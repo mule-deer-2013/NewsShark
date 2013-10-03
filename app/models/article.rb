@@ -22,7 +22,7 @@ class Article < ActiveRecord::Base
     closeness = 0
     ATTRIBUTE_MAPPER.each_pair do |channel_attrs, article_attr|
       channel.send(channel_attrs).each_pair do |channel_attr, karma|
-        if ( channel_attr.in?(self.send(article_attr)) && karma.to_f.abs >= channel.minimum_karma_for_relevancy )
+        if ( channel_attr.to_s.in?(self.send(article_attr).to_s) && karma.to_f.abs >= channel.minimum_karma_for_relevancy )
           closeness += karma.to_f
         end
       end
