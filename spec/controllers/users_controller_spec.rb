@@ -6,10 +6,10 @@ describe UsersController do
     let(:valid_params) { {:email => "thomas@me.com", :password => "123notit"} }
     let(:user) { FactoryGirl.create :user }
     context "when not signed in" do
-      it "should redirect to signin_path" do
+      it "should redirect to new_user_path" do
         controller.stub :signed_in? => false
         get :show, :id => user.id
-        response.should redirect_to signin_path
+        response.should redirect_to new_user_path
       end
     end
 

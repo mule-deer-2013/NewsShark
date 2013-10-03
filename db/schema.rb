@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131001050718) do
+ActiveRecord::Schema.define(:version => 20131002171923) do
 
   add_extension "hstore"
 
@@ -29,9 +29,10 @@ ActiveRecord::Schema.define(:version => 20131001050718) do
   create_table "channels", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.hstore   "preferenced_keywords"
+    t.hstore   "preferenced_publications"
   end
 
   create_table "users", :force => true do |t|

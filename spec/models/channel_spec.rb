@@ -18,7 +18,9 @@ describe Channel do
       end
       context "with one rated article" do
         it "returns one less unrated article" do
-          channel.articles.first.update_user_feedback!(rand(-1..1))
+          article = channel.articles.first
+          article.user_feedback = (rand(-1..1))
+          article.save
           expect(channel.unrated_articles.count).to eq channel.articles.count - 1
         end
       end
@@ -33,14 +35,24 @@ describe Channel do
     end
 
     describe '#update_preferences_from' do
-      it "sets the keywords for a channel based on the keywords for an article" do
-        article = channel.articles.first
-        article.set_keywords
-        article.update_user_feedback!(1)
+      let(:article) { channel.articles.first }
+      before { article.user_feedback = (1) }
+      before { article.stub :keywords => ['Obama','Politics','Election'] }
+      before { article.stub :publication => 'Economist' }
+
+      it "sets the keywords based on keywords for an article" do
         expect {
           channel.update_preferences_from(article)
         }.to change {
           channel.preferenced_keywords
+        }
+      end
+
+      it "sets the publications based on the publication for an article" do
+        expect {
+          channel.update_preferences_from(article)
+        }.to change {
+          channel.preferenced_publications
         }
       end
     end
@@ -48,12 +60,12 @@ describe Channel do
   end
 
   context "Without associated articles" do
-    let(:channel) { FactoryGirl.create(:channel) }
+    let(:channel) { FactoryGirl.build(:channel) }
 
     describe '#scrape_for_articles' do
       it "creates Article objects from a scrape" do
         expect{
-          channel.scrape_for_articles
+          channel.save
         }.to change {
           channel.articles.count
         }.from(0)
