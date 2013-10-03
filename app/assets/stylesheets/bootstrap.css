@@ -5979,6 +5979,7 @@ a.badge:focus {
   position: relative;
   width: 100%;
   overflow: hidden;
+  text-align: center;
 }
 
 .carousel-inner > .item {
@@ -5992,7 +5993,7 @@ a.badge:focus {
 
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
-  display: block;
+  display: inline-block;
   line-height: 1;
 }
 

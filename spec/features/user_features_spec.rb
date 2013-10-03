@@ -18,7 +18,7 @@ feature 'channels', :js => true do
     end
 
     it 'shows all user channels' do
-      click_link 'Home'
+      click_button 'Home'
       expect(page).to have_content( "Egypt" )
     end
   end
