@@ -2,7 +2,7 @@ require 'support/meta_inspector_fake'
 require 'spec_helper'
 
 describe Channel do
-  context "Validations" do
+  context "Validations and Associations" do
     it { should validate_presence_of :name }
     it { should belong_to :user }
   end
