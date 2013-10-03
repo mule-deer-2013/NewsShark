@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'mechanize'
-gem 'pismo'
 gem 'lingua'
+gem 'pismo'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
