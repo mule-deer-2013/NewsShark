@@ -8,15 +8,6 @@ describe Article do
     it { should validate_presence_of :url }
   end
 
-  context "#set_keywords" do
-    let(:article) { FactoryGirl.create :article }
-    it "sets keywords" do
-      expect{
-        article.set_keywords
-      }.to change { article.keywords }
-    end
-  end
-
   describe '#compute_closeness_to' do
     let(:article) { FactoryGirl.create :article }
     let(:channel) { article.channel }
