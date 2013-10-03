@@ -1,6 +1,6 @@
 class Recommender
 
-  MINIMUM_FEEDBACK = 3
+  include ChannelArticleMapper
 
   def self.enough_rated_articles?(channel)
     channel.rated_articles.count >= MINIMUM_FEEDBACK
