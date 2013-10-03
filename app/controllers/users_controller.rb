@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   skip_before_filter :require_login, only: [:new, :create]
 
   def new
@@ -9,7 +10,7 @@ class UsersController < ApplicationController
     user = User.new(params[:user])
     if user.save
       sign_in user
-      redirect_to user, :notice => "Welcome!"
+      redirect_to user, :notice => "Welcome #{user.first_name}!"
     else
       redirect_to new_user_path, :notice => user.errors.full_messages.join(', ')
     end
