@@ -18,8 +18,9 @@ describe Article do
       article.stub :keywords => ["these", "are"]
       article.stub :publication => "nytimes"
 
-      channel.stub :preferenced_keywords => ({"these" => "3", "are" => "1", "the" => "2", "preferenced keywords" => "0" })
+      channel.stub :preferenced_keywords => ({"these" => "3", "are" => "1", "the" => "1.9", "preferenced keywords" => "0" })
       channel.stub :preferenced_publications => ({"nytimes" => "3", "economist" => "1"})
+
 
       expect(article.compute_closeness).to eq 6
     end
