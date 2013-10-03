@@ -35,51 +35,5 @@ class Article < ActiveRecord::Base
     closeness
   end
 
-  def set_keywords
-<<<<<<< HEAD
-    # if self.keywords.empty?
-    #   begin
-    #     # page = MetaInspector.new(self.url)
-    #     page = NewsScraper.keyword_scrape(self.url)
-
-    #     if (words = ( page.meta_news_keywords || page.meta_keywords || page.meta_keyword ) )
-    #       keywords = words.split(',')
-    #       keywords.map! { |word| word.strip }
-    #       keywords.each do |keyword|
-    #         self.keywords += [keyword.downcase]
-    #       end
-    #     end
-
-    #     self.keywords = self.keywords.uniq
-    #     self.save
-
-    #   rescue
-    #     self.destroy
-    #   end
-
-    # end
-=======
-    if self.keywords.empty?
-      begin
-        page = NewsScraper.keyword_scrape(self.url)
-
-        if (words = ( page.meta_news_keywords || page.meta_keywords || page.meta_keyword ) )
-          keywords = words.split(',')
-          keywords.map! { |word| word.strip }
-          keywords.each do |keyword|
-            self.keywords += [keyword.downcase]
-          end
-        end
-
-        self.keywords = self.keywords.uniq
-        self.keywords.delete('')
-        self.save
-
-      rescue
-        self.destroy
-      end
->>>>>>> master
-
-  end
 
 end
