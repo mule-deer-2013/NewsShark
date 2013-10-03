@@ -1,3 +1,4 @@
+require 'support/meta_inspector_fake'
 require 'spec_helper'
 
 feature 'user signup', :js => true do
@@ -10,7 +11,7 @@ feature 'user signup', :js => true do
       fill_in "user_password", :with => "newsshark"
       fill_in "Password confirmation", :with => "newsshark"
       click_button "Sign up"
-      expect(page).to have_content( "Welcome!" )
+      expect(page).to have_content( "Welcome" )
     end
   end
   it 'displays error message(s)' do
@@ -35,7 +36,7 @@ feature 'user signin', :js => true do
       fill_in "session_email", :with => user.email
       fill_in "session_password", :with => user.password
       click_button "Sign in"
-      expect(page).to have_content( "Welcome Back Shark" )
+      expect(page).to have_content( "Welcome" )
     end
   end
 
