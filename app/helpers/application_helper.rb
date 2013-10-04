@@ -21,9 +21,9 @@ module ApplicationHelper
   def next_button(article)
     action_button(article, "Next", 0, 'btn btn-inverse')
   end
-  
+
   def action_button(article, name, feedback, html_class)
-    button_to(name, user_channel_article_path(current_user, article.channel, article, :user_feedback => feedback), :method => :put, :class => html_class)
+    button_to(name, user_channel_article_path(current_user, article.channel, article, :user_feedback => feedback), :method => :put, :class => html_class, :remote => true)
   end
 
 end
