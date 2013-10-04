@@ -20,9 +20,15 @@ $('document').ready(function(){
     renderIframe(this.href);
   })
 
-  $('.page').on('ajax:success', '.btn-group', function(e, server_data){
-    $('.btn-group').replaceWith(server_data.feedback_partial);
-    renderIframe(server_data.url)
+  $('.page').on('ajax:success', '.btn-group form', function(e, server_data){
+    $('.btn-group').after('Vote recorded.')
+    if (this.action[this.action.length - 2] === '-'){
+      $('.btn-group').replaceWith(server_data.feedback_partial);
+      renderIframe(server_data.url)
+    } else if (this.action[this.action.length - 1] === '0'){
+      $('.btn-group').replaceWith(server_data.feedback_partial);
+      renderIframe(server_data.url)
+    }
   })
 
 })
