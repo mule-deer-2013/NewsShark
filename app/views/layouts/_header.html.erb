@@ -8,7 +8,7 @@
       <% end %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= button_to "Home", root_path, :class => 'btn' %></li>
+          <li><%= button_to "Home", root_path, :class => 'btn', :method => :get %></li>
           <% if signed_in? %>
            <li><%= button_to "Sign out", signout_path, :method => :delete, :class => 'btn' %></li>
           <% else %>
