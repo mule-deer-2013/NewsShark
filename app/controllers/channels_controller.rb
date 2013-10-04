@@ -12,6 +12,8 @@ class ChannelsController < ApplicationController
 
   def show
     @channel = Channel.find(params[:id])
+    @user = current_user
+    @user_channels = @user.channels - [@channel]
     if @channel.user == current_user
       best_articles = Recommender.best_articles_ranked(@channel.id)
       @articles = ( best_articles.empty? ? @channel.unrated_articles : best_articles )
