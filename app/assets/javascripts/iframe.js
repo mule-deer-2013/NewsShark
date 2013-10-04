@@ -9,7 +9,6 @@ function updateForm(id) {
   }).done(function(server_data){
     $('.btn-group').replaceWith(server_data);
   }).fail(function(){
-    console.log("Something went wrong")
   })
 }
 

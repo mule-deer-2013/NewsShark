@@ -1,4 +1,4 @@
-<h1 class='lead' style="font-family:'Times New Roman', Times, serif;"><%= @channel.name.upcase %></h1>
+<h1 class='lead' style="font-family:'Times New Roman', Times, serif;"><b><%= @channel.name.upcase %></b></h1>
 
 <% focus_article = @articles.first %>
 
@@ -6,7 +6,7 @@
 <%= render partial: 'articles/feedback_form', locals: { article: focus_article } %>
 
 <div id="myCarousel" class="carousel slide" data-interval="false" wrap="true" style="height:100px;">
-  <div class="carousel-inner" style="background:white; height:100px">
+  <div class="carousel-inner" style="height:100px">
 
     <% @articles.each_slice(5).with_index do |slice, index| %>
       <% if index == 0 %>
@@ -15,7 +15,8 @@
             <ul class="newsbox">
               <li class="span3">
                 <div class="caption hotlink">
-                  <%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
+                  
+                  <h4><b><%= link_to "#{article.title}", article.url, "data-action" => user_channel_article_path(article.channel.user, article.channel, article), class: "news_link", "data-id" => article.id %></b></h4>
                 </div>
               </li>
             </ul>
@@ -27,7 +28,7 @@
             <ul class="newsbox">
               <li class="span3">
                 <div class="caption hotlink">
-                  <%= link_to "#{article.title}", article.url, id: "#{article.id}", class: "news_link" %>
+                  <b><%= link_to "#{article.title}", article.url, "data-action" => user_channel_article_path(article.channel.user, article.channel, article), class: "news_link" , "data-id" => article.id %></b>
                 </div>
               </li>
             </ul>
