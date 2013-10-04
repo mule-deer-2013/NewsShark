@@ -1,9 +1,14 @@
-body {
+/*body {
   margin-top: 100px;
+}*/
+
+
+body{
+  box-shadow: 10px, 10px, 5px, #F5E8D5;
 }
 
 .page {
-  margin-top: 120px;
+  margin-top: 80px;
   margin-left: 40px;
 }
 
@@ -12,3 +17,78 @@ body {
   position: fixed;
   left: 200px;
 }
+
+ iframe {
+    width: 75%;
+    height: 720px;
+    margin: 0;
+    margin-left: 12%;
+    margin-right: 0px;
+    margin-bottom: 15px;    
+}
+
+
+.btn-group {
+  position: absolute;
+  margin-top: 15%;
+  margin-left: 30px;
+}
+
+.myCarousel {
+  margin-top: 15px; 
+  background-color: #FFF8F0;
+}
+
+.navbar-search {
+  margin-left: 10%;
+}
+
+.dropdown {
+  margin-left: 60px;
+}
+
+.navbar-search .btn {
+  margin-left: 30px;
+}
+
+.too-high {
+  margin-top: 15px;
+}
+
+.hotlink {
+  font-family:"Times New Roman", Times, serif;
+}
+
+.nav_session {
+  position: absolute;
+  right: 80px;
+  top: 10px;
+}
+
+.signin_email {
+  position: absolute;
+  right: 400px;
+  margin: 15px;
+}
+
+.signin_password {
+  position: absolute;
+  right: 160px;
+  margin: 15px;
+}
+
+.newsbox {
+  margin-right:0px;
+  width:260px;
+  height:180px;
+  display:inline;
+}
+
+.carousel-inner {
+  margin-left: 250px;
+}
+
+#myCarousel {
+  margin-bottom: 0px;
+}
+
