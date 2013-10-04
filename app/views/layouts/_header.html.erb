@@ -1,28 +1,49 @@
-<header class="navbar navbar-fixed-top" style="height: 20px">
+<style type="text/css">
+  li {
+    list-style-type: none;
+  }
+  h3 a {
+    position: absolute;
+    left: 80px;
+  }
+</style>
+<div class="navbar navbar-fixed-top" style="height: 20px">
   <div class="navbar-inner">
-    <div class="container">
-      <% if current_user %>
-        <h3><%= link_to "NewsShark", user_path(current_user) %></h3>
-      <% else %>
-        <h3><%= link_to "NewsShark", root_path %></h3>
+    <div class="container pull-left">
+      <ul class="active">
+        <li class="active">
+          <h3 class ="brand">NewsShark</h3>
+        </li>
+      </ul>
+    <% if @user_channels %>
+      <ul class="nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <h4>channels menu</h4>
+          </a>
+          <ul class="dropdown-menu">
+            <% @user_channels.each do |channel| %>
+              <li><%= link_to channel.name, [@user, channel] %></li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    <% end %>
+      <% if @new_channel %>
+        <%= form_for([@user, @new_channel], :html => {:class => "navbar-search pull-left"})  do |f| %>
+          <%= f.text_field :name, class: "too-high", placeholder: "new channel" %>
+          <%= f.submit class: "btn"%>
+        <% end %>
       <% end %>
-      <nav>
-        <ul class="nav pull-right">
-          <li><%= button_to "Home", root_path, :class => 'btn', :method => :get %></li>
-          <% if signed_in? %>
-           <li><%= button_to "Sign out", signout_path, :method => :delete, :class => 'btn' %></li>
-          <% else %>
-             <%= form_for(:session, url: sessions_path) do |f| %>
-             <li><%= f.label :email %>
-                  <%= f.text_field :email %></li>
-              <li><%= f.label :password %>
-                  <%= f.password_field :password %></li>
-              <li><%= f.submit "Sign in", :class => 'btn' %></li>
-              <% end %>
-              <p>New user? <%= link_to "Create an account >>", new_user_path %></p>
-          <% end %>
-        </ul>
-      </nav>
     </div>
+          <% if signed_in? %>
+             <li><%= button_to "Sign out", signout_path, :method => :delete, :class => 'nav_session btn' %></li>
+          <% else %>
+            <%= form_for(:session, url: sessions_path) do |f| %>
+              <%= f.text_field :email, placeholder: "email", :class => "session_input signin_email" %></li>
+              <%= f.password_field :password, placeholder: "password", :class => "session_input signin_password" %></li>
+              <li><%= f.submit "Sign in", :class => 'btn nav_session' %></li>
+            <% end %>
+          <% end %>
   </div>
-</header>
+</div>

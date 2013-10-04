@@ -32,10 +32,10 @@ describe ArticlesController do
         put :update, params
       end
 
-      it "redirects to channel show path" do
-        put :update, params
-        response.should redirect_to user_channel_path(user, channel)
-      end
+      # it "redirects to channel show path" do
+      #   put :update, params
+      #   response.should redirect_to user_channel_path(user, channel)
+      # end
     end
   end
 
