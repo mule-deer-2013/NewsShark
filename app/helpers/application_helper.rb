@@ -11,15 +11,15 @@ module ApplicationHelper
 
 
   def like_button(article)
-    action_button(article, "Like", 1, 'btn btn-primary')
+    action_button(article, "Like", 1, 'btn like')
   end
 
   def dislike_button(article)
-    action_button(article, "Dislike", -1, 'btn btn-danger')
+    action_button(article, "Dislike", -1, 'btn dislike')
   end
 
   def next_button(article)
-    action_button(article, "Next", 0, 'btn btn-inverse')
+    action_button(article, "Next", 0, 'btn next')
   end
 
   def action_button(article, name, feedback, html_class)
