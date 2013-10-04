@@ -1,11 +1,11 @@
 <h1 class='lead' style="font-family:'Times New Roman', Times, serif;"><%= @channel.name.upcase %></h1>
 
 <% focus_article = @articles.first %>
+
 <iframe id='iframe_window' src='<%=focus_article.url%>' id="iframe"></iframe>
 <%= render partial: 'articles/feedback_form', locals: { article: focus_article } %>
 
 <div id="myCarousel" class="carousel slide" data-interval="false" wrap="true" style="height:100px;">
- 
   <div class="carousel-inner" style="background:white; height:100px">
 
     <% @articles.each_slice(5).with_index do |slice, index| %>

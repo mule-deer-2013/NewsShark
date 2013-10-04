@@ -11,6 +11,8 @@ NewsShark::Application.routes.draw do
     end
   end
 
+  resources :articles, only: [:show]
+
 end
 
 # JW: only nest resources when it doesn't make sense to work with the sub-resource
