@@ -2,11 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'mechanize'
+gem 'lingua'
+gem 'pismo'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production, :development do
-  gem 'metainspector'
   # so that we don't hit the internet on tests
 end
 
@@ -40,6 +41,7 @@ group :test, :development do
   gem 'better_errors'
   gem 'sextant'
   gem 'binding_of_caller'
+  gem 'simplecov', :require => false
 end
 
 group :test do
@@ -50,4 +52,5 @@ group :test do
   gem 'faker'
   gem 'database_cleaner'
   gem 'launchy'
+  gem "rspec-sidekiq" 
 end

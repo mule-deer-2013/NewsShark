@@ -1,11 +1,14 @@
 NewsShark::Application.routes.draw do
 
-  resources :sessions, only: [:new, :create, :destroy]
+  root to: 'users#show'
+  get '/profile', to: 'users#show', as: :user
+  delete '/signout', to: 'sessions#destroy', as: :signout
 
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy'
+  resources :sessions, only: [:create]
 
   resources :users, only: [:new, :create, :show]
+
+  resources :guests, only: [:create]
 
   resources :channels, only: [:create, :show, :destroy] do
     resources :articles, only: [:update]

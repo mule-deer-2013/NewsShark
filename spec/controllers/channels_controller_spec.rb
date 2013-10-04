@@ -29,7 +29,7 @@ describe ChannelsController do
       end
 
       it "does not create a new channel" do
-        expect{
+        expect {
           post :create, invalid_params
         }.to_not change{ Channel.count }
       end
@@ -40,7 +40,7 @@ describe ChannelsController do
   describe "GET #show" do
     let!(:channel) { FactoryGirl.create :channel_with_articles }
     let!(:params) { { :user_id => channel.user.id, :id => channel.id } }
-
+    let(:user) { channel.user }
     before { sign_in user }
     before { get :show, params }
 

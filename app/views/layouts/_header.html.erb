@@ -14,7 +14,7 @@
               <% if current_user.guest? %>
                   <%= link_to "Sign Up", new_user_path%>
                     <% end %>
-           <li><%= button_to "Sign out", {:controller => :sessions, :action => 'destroy'}, :method => :delete %></li>
+           <li><%= button_to "Sign out", signout_path, :method => :delete %></li>
           <% else %>
              <%= form_for(:session, url: sessions_path) do |f| %>
              <li><%= f.label :email %>

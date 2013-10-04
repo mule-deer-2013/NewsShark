@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Guest do
+
+  context "Validations" do
+    it { should have_many(:channels).dependent(:destroy)}
+  end
  
   context "#guest?" do
     it "sets guest? to true" do
