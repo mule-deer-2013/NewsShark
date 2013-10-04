@@ -13,3 +13,8 @@ $('document').ready(function(){
     updateForm($(this).data('action'));
   })
 })
+
+var myIframe = document.getElementById('iframe');
+myIframe.onload = function () {
+    myIframe.contentWindow.scrollTo(0,20);
+}

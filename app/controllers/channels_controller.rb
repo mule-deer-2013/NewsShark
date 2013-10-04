@@ -11,6 +11,7 @@ class ChannelsController < ApplicationController
   end
 
   def show
+    @new_channel = Channel.new
     @channel = Channel.find(params[:id])
     @user = current_user
     @user_channels = @user.channels - [@channel]
@@ -29,7 +30,3 @@ class ChannelsController < ApplicationController
     redirect_to user_path current_user
   end
 end
-
-
-
-

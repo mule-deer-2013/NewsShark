@@ -18,6 +18,9 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    unless @user.channels.empty?
+      redirect_to user_channel_path(@user, @user.channels.last)
+    end
     @channel = Channel.new
     @user_channels = @user.channels
   end
