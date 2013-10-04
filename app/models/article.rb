@@ -1,8 +1,8 @@
 class Article < ActiveRecord::Base
 
-  attr_accessible :title, :url, :channel_id, :keywords, :author, :word_count, :kincaid, :datetime, :description
   include ChannelArticleMapper
 
+  attr_accessible :title, :url, :channel_id, :keywords, :publication, :kincaid, :datetime, :author, :word_count, :description
   validates_presence_of :title, :url
   validates_uniqueness_of :url, scope: :channel_id
 
