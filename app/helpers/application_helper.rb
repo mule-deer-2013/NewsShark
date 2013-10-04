@@ -18,7 +18,7 @@ module ApplicationHelper
     action_button(article, "Dislike", -1, 'btn btn-danger')
   end
 
-  def skip_button(article)
+  def next_button(article)
     action_button(article, "Next", 0, 'btn btn-inverse')
   end
   
