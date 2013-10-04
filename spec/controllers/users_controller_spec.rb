@@ -4,19 +4,19 @@ describe UsersController do
 
   describe "GET #show" do
     let(:valid_params) { {:email => "thomas@me.com", :password => "123notit"} }
-    let(:user) { FactoryGirl.create :user }
+    let(:member) { FactoryGirl.create :member }
     context "when not signed in" do
       it "should redirect to new_user_path" do
         controller.stub :signed_in? => false
-        get :show, :id => user.id
+        get :show, :id => member.id
         response.should redirect_to new_user_path
       end
     end
 
     context "when signed in" do
-      it "should render the user's show template" do
-        controller.stub :current_user => user # stub in signed_in? ...instead?
-        get :show, :id => user.id
+      it "should render the member's show template" do
+        controller.stub :current_user => member # stub in signed_in? ...instead?
+        get :show, :id => member.id
         response.should render_template("show")
       end
     end
@@ -34,7 +34,7 @@ describe UsersController do
     let(:invalid_params) { {first_name: '' , last_name: '', email: ''} }
 
     context "with valid params" do
-      it "creates a new user" do
+      it "creates a new member" do
         expect{
           post :create, :user => valid_params
         }.to change{ User.count }.by(1)
@@ -46,13 +46,13 @@ describe UsersController do
     end
 
     context "with invalid_params" do
-      it "does not create user" do
+      it "does not create member" do
         expect{
-          post :create, :user => invalid_params
+          post :create, :member => invalid_params
         }.to_not change{ User.count }
       end
-      it "redirects to new user route" do
-        post :create, :user => invalid_params
+      it "redirects to new member route" do
+        post :create, :member => invalid_params
         response.should redirect_to new_user_path
       end
     end
@@ -63,13 +63,13 @@ describe UsersController do
     before { controller.stub :signed_in? => true }
     before { controller.stub :current_user => user }
 
-    it "assigns @user" do
-      get :show, :id => user.id
+    it "assigns @member" do
+      get :show, :id => member.id
       expect(assigns(:user)).to be_a User
     end
 
     it "assigns @channel" do
-      get :show, :id => user.id
+      get :show, :id => member.id
       expect(assigns(:channel)).to be_an_instance_of Channel
     end
   end

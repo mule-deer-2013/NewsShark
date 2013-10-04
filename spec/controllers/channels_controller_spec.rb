@@ -3,7 +3,7 @@ require 'spec_helper'
 include SessionsHelper
 
 describe ChannelsController do
-  let!(:user) { FactoryGirl.create :user }
+  let!(:user) { FactoryGirl.create :member }
 
   describe "POST create" do
     let(:valid_params) { { :user_id => user.id , :channel => { :name => "Egypt" } } }

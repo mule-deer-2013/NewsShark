@@ -4,14 +4,14 @@ require 'spec_helper'
 
 describe SessionsController  do
   describe 'POST #create' do
-    let!(:user) { FactoryGirl.create(:user) }
+    let!(:member) { FactoryGirl.create(:member) }
 
-    let(:valid_params) { { :email => user.email, :password => user.password } }
+    let(:valid_params) { { :email => member.email, :password => member.password } }
     let(:invalid_params) { { :email => '', :password => '1234' } }
 
     context 'sign in with invalid params' do
       before(:each) { post :create, :session =>  invalid_params }
-      it "should redirect to user path" do
+      it "should redirect to member path" do
         controller.should_not_receive(:sign_in)
       end
 
@@ -21,28 +21,28 @@ describe SessionsController  do
     end
 
     context 'sign in with valid params' do
-      it "should login the user" do
-        controller.should_receive(:sign_in)#.with(:user)
+      it "should login the member" do
+        controller.should_receive(:sign_in)#.with(:member)
         post :create, :session => valid_params
       end
 
-      it "should redirect to user path" do
+      it "should redirect to member path" do
         post :create, :session => valid_params
-        page.should redirect_to user_path user
+        page.should redirect_to user_path member
       end
 
-      it "attempts to authenticate user with valid params " do
-        User.should_receive(:find_by_email).and_return(user)
-        user.should_receive(:authenticate)
+      it "attempts to authenticate member with valid params " do
+        User.should_receive(:find_by_email).and_return(member)
+        member.should_receive(:authenticate)
         post :create, :session => valid_params
       end
 
       it "receives the #authenticate method" do
-        User.any_instance.should_receive(:authenticate).and_return(true)
+        Member.any_instance.should_receive(:authenticate).and_return(true)
         post :create, :session => valid_params
       end
 
-      it "doesnt break when it cant find the user" do
+      it "doesnt break when it cant find the member" do
         expect{
           User.should_receive(:find_by_email).and_return(nil)
           post :create, :session => valid_params
@@ -53,7 +53,7 @@ describe SessionsController  do
 
   describe "#destroy" do
     context 'signed in' do
-      it "should sign out user" do
+      it "should sign out member" do
         controller.stub :signed_in? => true
         controller.should_receive(:sign_out)
         delete :destroy
@@ -66,7 +66,7 @@ describe SessionsController  do
     end
 
     context 'not signed in' do
-      it "should not sign out user" do
+      it "should not sign out member" do
         controller.stub :signed_in? => false
         controller.should_not_receive(:sign_out)
         delete :destroy

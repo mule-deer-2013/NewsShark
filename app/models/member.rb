@@ -1,13 +1,13 @@
 class Member < User
 
-validates_presence_of :email, :first_name, :last_name
+  validates_presence_of :email, :first_name, :last_name
 
-attr_accessible :email, :first_name, :last_name, :password, :password_confirmation
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation
 
-has_secure_password  
+  has_secure_password  
   
- def guest?
+  def guest?
    false
  end
-  
+ 
 end

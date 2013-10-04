@@ -1,4 +1,3 @@
-require 'support/meta_inspector_fake'
 require 'spec_helper'
 
 describe Recommender do

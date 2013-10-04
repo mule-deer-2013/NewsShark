@@ -3,11 +3,11 @@ require 'spec_helper'
 
 
 feature 'channels', :js => true do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:member) { FactoryGirl.create(:member) }
   before do
     visit new_user_path
-    fill_in "session_email", :with => user.email
-    fill_in "session_password", :with => user.password
+    fill_in "session_email", :with => member.email
+    fill_in "session_password", :with => member.password
     click_button "Sign in"
     fill_in "channel_name", :with => "Egypt"
     click_button 'Create Channel'
@@ -17,7 +17,7 @@ feature 'channels', :js => true do
       expect(page).to have_content( "Egypt" )
     end
 
-    it 'shows all user channels' do
+    it 'shows all member channels' do
       click_link 'Home'
       expect(page).to have_content( "Egypt" )
     end
@@ -35,7 +35,7 @@ end
 
 
 
-feature 'user signup', :js => true do
+feature 'member signup', :js => true do
   context "with valid params" do
     it "displays success message" do
       visit new_user_path
@@ -61,14 +61,14 @@ feature 'user signup', :js => true do
 end
 
 
-feature 'user signin', :js => true do
+feature 'member signin', :js => true do
   context 'with valid params' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:member) { FactoryGirl.create(:member) }
 
     it 'displays success message' do
       visit new_user_path
-      fill_in "session_email", :with => user.email
-      fill_in "session_password", :with => user.password
+      fill_in "session_email", :with => member.email
+      fill_in "session_password", :with => member.password
       click_button "Sign in"
       expect(page).to have_content( "Welcome" )
     end
@@ -85,7 +85,7 @@ feature 'user signin', :js => true do
   end
 end
 
-feature 'user authentication', :js => true do
+feature 'member authentication', :js => true do
   it 'redirects to sign in page' do
     visit user_path(1)
     expect(page).to_not have_content("Welcome")
@@ -93,12 +93,12 @@ feature 'user authentication', :js => true do
 end
 
 feature 'User signout', :js => true do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:member) { FactoryGirl.create(:member) }
 
   it 'displays sign out message' do
     visit new_user_path
-    fill_in "session_email", :with => user.email
-    fill_in "session_password", :with => user.password
+    fill_in "session_email", :with => member.email
+    fill_in "session_password", :with => member.password
     click_button 'Sign in'
     click_button 'Sign out'
     expect(page).to have_content("You have successfully logged out.")
