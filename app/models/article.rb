@@ -1,5 +1,7 @@
 class Article < ActiveRecord::Base
 
+  BLACK_LIST = ['theblaze', 'triblive', 'medscape', 'businessweek', 'outdoorlife', 'poconorecord', 'boston', 'mlb', 'cbs', 'wsj', 'reuters', 'nytimes']
+
   include ChannelArticleMapper
 
   attr_accessible :title, :url, :channel_id, :keywords, :publication, :kincaid, :datetime, :author, :word_count, :description
@@ -15,6 +17,7 @@ class Article < ActiveRecord::Base
   def set_publication
     publication = self.url.sub(/^https?:\/\/(www\.)?/, '')
     self.publication = publication.sub(/(.com||.org(.eg)?||.net)?\/.*$/, '')
+    check_blacklist
   end
 
   def compute_closeness
@@ -30,5 +33,11 @@ class Article < ActiveRecord::Base
     end
 
     closeness
+  end
+
+  def check_blacklist
+    BLACK_LIST.each do |black|
+      self.destroy if self.publication.include?(black)
+    end
   end
 end
