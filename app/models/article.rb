@@ -11,7 +11,7 @@ class Article < ActiveRecord::Base
   belongs_to :channel
 
   before_create :set_publication
-  
+
   after_create { ArticleWorker.perform_async(self.id) }
 
   def set_publication
@@ -23,9 +23,10 @@ class Article < ActiveRecord::Base
   def compute_closeness
     channel = self.channel
     closeness = 0
-    ATTRIBUTE_MAPPER.each_pair do |channel_attrs, article_attr|
-      channel.send(channel_attrs).each_pair do |channel_attr, karma|
-        if ( channel_attr.to_s.in?(self.send(article_attr).to_s) && karma.to_f.abs >= channel.minimum_karma_for_relevancy )
+    ATTRIBUTE_MAPPER.each_pair do |channel_preferences, article_attribute|
+      channel.send(channel_preferences).each_pair do |channel_preference, karma|
+        if ( channel_preference.to_s.in?(self.send(article_attribute).to_s) &&
+             karma.to_f.abs >= channel.minimum_karma_for_relevancy )
           closeness += karma.to_f
         end
       end
