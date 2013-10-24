@@ -5,8 +5,12 @@ exec 'article_worker.rb'
 
 gem 'lingua'
 gem 'pismo'
-gem 'activerecord'
+gem 'activerecord', '3.2.12'
 gem 'pg'
-dir '../../app/models/article.rb'
-dir '../../app/models/article_scraper.rb'
+gem 'nokogiri', '1.5.10'
+file '../../app/models/article.rb'
+file '../../app/models/article_scraper.rb'
+file '../../app/models/channel_article_mapper.rb'
 
+
+remote

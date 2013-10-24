@@ -1,9 +1,10 @@
 require 'lingua'
 require 'pismo'
-require 'models/article_scraper'
+require 'article_scraper.rb'
 require 'pg'
 require 'active_record'
-require 'models/article'
+require 'channel_article_mapper.rb'
+require 'article.rb'
 
 p params
 
