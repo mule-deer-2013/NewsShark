@@ -7,6 +7,6 @@ gem 'lingua'
 gem 'pismo'
 gem 'activerecord'
 gem 'pg'
-dir '../../app/models/article'
-dir '../../app/models/article_scraper'
+dir '../../app/models/article.rb'
+dir '../../app/models/article_scraper.rb'
 
