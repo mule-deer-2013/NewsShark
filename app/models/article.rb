@@ -17,7 +17,7 @@ class Article < ActiveRecord::Base
 
   def scrape_articles
     client = IronWorkerNG::Client.new(:token => ENV['TOKEN'], :project_id => ENV['PROJECT_ID'])
-    client.tasks.create('article_workers', {'project_id' => self.id,'database' => Rails.configuration.database_configuration[Rails.env])}
+    client.tasks.create('article_workers', {'project_id' => self.id,'database' => Rails.configuration.database_configuration[Rails.env]})
   end
 
   def set_publication
