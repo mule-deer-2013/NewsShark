@@ -4,7 +4,7 @@ gem 'rails', '3.2.12'
 gem 'mechanize'
 gem 'lingua'
 gem 'pismo'
-gem 'iron_worker'
+gem 'iron_worker_ng'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
