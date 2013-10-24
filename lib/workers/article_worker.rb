@@ -12,7 +12,7 @@ def setup_database
   puts "Database connection details:#{params['database'].inspect}"
   return unless params['database']
   # establish database connection
-  ActiveRecord::Base.establish_connetion(params['database'])
+  ActiveRecord::Base.establish_connection(params['database'])
 end
 
 
