@@ -4,6 +4,7 @@ require 'models/article_scraper'
 require 'pg'
 require 'active_record'
 require 'models/article'
+
 p params
 
 def setup_database

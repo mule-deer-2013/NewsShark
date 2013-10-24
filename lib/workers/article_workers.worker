@@ -1,0 +1,12 @@
+runtime 'ruby'
+
+exec 'article_worker.rb'
+
+
+gem 'lingua'
+gem 'pismo'
+gem 'activerecord'
+gem 'pg'
+dir '../../app/models/article'
+dir '../../app/models/article_scraper'
+
