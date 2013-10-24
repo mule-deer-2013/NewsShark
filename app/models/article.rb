@@ -12,7 +12,13 @@ class Article < ActiveRecord::Base
 
   before_create :set_publication
 
-  after_create { ArticleWorker.perform_async(self.id) }
+  after_create :scrape_articles
+
+
+  def scrape_articles
+    client = IronWorkerNG::Client.new(:token => ENV['TOKEN'], :project_id => ENV['PROJECT_ID'])
+    client.task.create('ArticleWorker', {'project_id' => self.id}, 'database' => Rails.configuration.database_configuration[Rails.env])
+  end
 
   def set_publication
     publication = self.url.sub(/^https?:\/\/(www\.)?/, '')
@@ -25,7 +31,7 @@ class Article < ActiveRecord::Base
     closeness = 0
     ATTRIBUTE_MAPPER.each_pair do |channel_preferences, article_attribute|
       channel.send(channel_preferences).each_pair do |channel_preference, karma|
-        if ( channel_preference.to_s.in?(self.send(article_attribute).to_s) &&
+        if (channel_preference.to_s.in?(self.send(article_attribute).to_s) &&
              karma.to_f.abs >= channel.minimum_karma_for_relevancy )
           closeness += karma.to_f
         end

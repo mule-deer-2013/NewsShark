@@ -1,3 +1,4 @@
+
 class ArticleScraper
   def self.get_article_attributes(url)
     article_attributes = {}

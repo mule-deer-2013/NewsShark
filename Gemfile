@@ -4,6 +4,7 @@ gem 'rails', '3.2.12'
 gem 'mechanize'
 gem 'lingua'
 gem 'pismo'
+gem 'iron_worker'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -14,7 +15,6 @@ end
 gem 'thin'
 gem 'pg'
 gem 'postgres_ext'
-gem 'nokogiri'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'sidekiq'
 gem 'activerecord-postgres-hstore'
