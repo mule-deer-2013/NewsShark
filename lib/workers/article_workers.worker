@@ -5,9 +5,12 @@ exec 'article_worker.rb'
 
 gem 'lingua'
 gem 'pismo'
+gem 'postgres_ext'
 gem 'activerecord', '3.2.12'
 gem 'pg'
 gem 'nokogiri', '1.5.10'
+gem 'activerecord-postgres-hstore'
+
 file '../../app/models/article.rb'
 file '../../app/models/article_scraper.rb'
 file '../../app/models/channel_article_mapper.rb'
