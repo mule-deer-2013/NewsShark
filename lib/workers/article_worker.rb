@@ -1,8 +1,8 @@
 require 'lingua'
 require 'pismo'
-require '../../app/models/article_scraper.rb'
-require 'postgres_ext'
+require 'article_scraper.rb'
 require 'pg'
+require 'postgres_ext'
 require 'active_record'
 require 'activerecord-postgres-hstore'
 require '../../app/models/channel_article_mapper.rb'
@@ -11,7 +11,6 @@ require '../../app/models/article.rb'
 def params
   {"article_id"=>356, "database"=>{"adapter"=>"postgresql", "database"=>"d6pfhpqd4ndt8n", "username"=>"jxfxkuolpjxwux", "password"=>"AZxlUDFdpRSG1aaQgbaJ1r-Yb3", "host"=>"ec2-23-21-113-206.compute-1.amazonaws.com", "port"=>5432}}
 end
-p params
 
 def setup_database
   puts "Database connection details:#{params['database'].inspect}"
