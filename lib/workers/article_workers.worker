@@ -5,9 +5,9 @@ exec 'article_worker.rb'
 
 gem 'lingua'
 gem 'pismo'
-gem 'postgres_ext'
 gem 'activerecord', '3.2.12'
 gem 'pg'
+gem 'postgres_ext'
 gem 'nokogiri', '1.5.10'
 gem 'activerecord-postgres-hstore'
 
