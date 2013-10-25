@@ -8,9 +8,6 @@ require 'channel_article_mapper.rb'
 require 'article.rb'
 require 'postgres_ext'
 
-def params
-  {"article_id"=>356, "database"=>{"adapter"=>"postgresql", "database"=>"d6pfhpqd4ndt8n", "username"=>"jxfxkuolpjxwux", "password"=>"AZxlUDFdpRSG1aaQgbaJ1r-Yb3", "host"=>"ec2-23-21-113-206.compute-1.amazonaws.com", "port"=>5432}}
-end
 
 def setup_database
   puts "Database connection details:#{params['database'].inspect}"
